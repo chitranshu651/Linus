@@ -6,5 +6,5 @@ package core;
  */
 
 public class DAO {
-
+    static String voiceOutput;
 }

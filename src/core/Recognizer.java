@@ -14,6 +14,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.TargetDataLine;
 
+/**
+ * Class for recognizing voice (GCS text-to-voice)
+ */
 public class Recognizer implements Runnable {
 
     public void Recognizer() {
@@ -55,11 +58,24 @@ public class Recognizer implements Runnable {
                     new ResponseObserver<StreamingRecognizeResponse>() {
 
                         public void onStart(StreamController controller) {
-                            // do nothing
+                            //empty voice output
+                            DAO.voiceOutput = "";
                         }
 
                         public void onResponse(StreamingRecognizeResponse response) {
                             System.out.println(response);
+                            //pre-processing response to get text output from voice
+                            for (int i = -1; (i = response.toString().indexOf("transcript:", i + 1)) != -1; i++) {
+                                System.out.println(i);
+                                StringBuilder res = new StringBuilder();
+                                int j = i + 13;
+                                while(response.toString().charAt(j) != '"') {
+                                    res.append(response.toString().charAt(j));
+                                    j++;
+                                }
+                                DAO.voiceOutput = DAO.voiceOutput + res.toString().toLowerCase();
+                                System.out.println(DAO.voiceOutput);
+                            }
                         }
 
                         public void onComplete() {
