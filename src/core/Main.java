@@ -10,7 +10,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
+        Parent root = loader.load();
+        DAO.controller = loader.getController(); //save controller instance for calling updateGUI method from DAO
         primaryStage.setTitle("Voice-to-text");
         primaryStage.setScene(new Scene(root, 400, 300));
         primaryStage.show();

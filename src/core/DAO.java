@@ -7,4 +7,5 @@ package core;
 
 public class DAO {
     static String voiceOutput;
+    public static Controller controller;
 }
