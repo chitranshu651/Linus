@@ -74,11 +74,14 @@ public class Controller {
                             System.out.println("" + hashMap.get(o));
                             list.getItems().add(o+":"+hashMap.get(o));
                         }
+                        //if action equals to "cda" or "cdr" change pwd variable
                         if(response.getResult().getAction().equals("cda") || response.getResult().getAction().equals("cdr")) {
                             StringJoiner joiner = new StringJoiner("/");
                             for (Object o:hashMap.keySet().toArray()) {
                                 joiner.add(hashMap.get(o).toString()).add("/");
                             }
+                            //generate pwd from output from dialogflow
+                            DAO.pwd = Paths.get(DAO.pwd.toString().concat(joiner.toString()));
                             return;
                         }
                         System.out.println("output:" + response.getResult().getAction());
