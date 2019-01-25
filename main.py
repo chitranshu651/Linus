@@ -158,6 +158,14 @@ def main():
         print('::saveFirefox::')
         print(parameter['saveFile'])
         firefox.save(parameter)
+    elif action == 'url':
+        try:
+            parameter['url']
+        except KeyError:
+            parameter_error()
+        print('::url::')
+        print(parameter['url'])
+        firefox.open_url(parameter)
     elif action == 'fileio':
         try:
             parameter['filePath']
@@ -166,6 +174,15 @@ def main():
         print('::fileio::')
         print(parameter['filePath'])
         file.fileio()
+    elif action == "fsearch":
+        try:
+            parameter['key']
+        except KeyError:
+            parameter_error()
+        parameter['command'] = "locate " + parameter['key'].replace('#', '\ ')
+        print('::fsearch::')
+        print(parameter['command'])
+        command.execute_command(parameter)
 
     else:
         print('Undefined Action')
