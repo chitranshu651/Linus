@@ -39,8 +39,7 @@ def save(parameter):
 
 def load(parameter):
     import json
-    from graphqlclient import GraphQLClient
-    client = GraphQLClient('https://asdfghjklasdf.herokuapp.com/v1alpha1/graphql')
+    from credentials import client
     print('client created')
     result = client.execute('{firefox (where: {fileName: {_eq:\"' + parameter['saveFile'] + '\"}}){id windowNumber tabNumber timestamp URI }}')
     print('executed')
