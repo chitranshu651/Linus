@@ -110,4 +110,10 @@ public class Controller {
             throw new IllegalStateException("Failed to set environment variable", e);
         }
     }
+
+    public void updateGUI() {
+        System.out.println("updating GUI");
+        //// TODO: 26/1/19 update GUI, read data from output from python's o/p
+    }
+
 }
