@@ -1,0 +1,2 @@
+# Linus
+A Linux asssistant to help Linux newcomers to become aquintainted to Linux commands
