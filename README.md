@@ -1,14 +1,23 @@
 # Linus
-A Linux asssistant to help Linux newcomers to become aquintainted to Linux commands.
+## Introduction
+  Linus is a virtual Linux AI aimed at helping Linux newcomers overcome the learning curve accompanied by switching to Linux such as learning the necessary commands and handling the errors that come up. Linus includes the ability to understand speech and execute commands presented by the user. It is also able to search common resource portals such as [Google](www.google.com), [Stackoverflow](www.stackoverflow.com) and [GeeksforGeeks](www.geeksforgeeks.com).
 
 ## Features
  * Speech Recogition
- * Basic Linux Commands
+ * Necessary Linux Commands
  * Usage Monitor
  * Stackoverflow and GeekforGeeks search
  * IP Messaging
  * Dictionary and Weather
  * Firefox State History
+ * Music Player
+ * Change working environment
+ * File Sharing
+ * Google Search
+ * Alarm
+ * Error and Exception Search
+ * File Search
+ * General Knowledge
  
 ## Installation
 1) Clone the repository using:
@@ -26,5 +35,5 @@ java file
 1) API.AI
 2) Google Cloud Speech to Text
 3) Requests
-3) googletrans
+4) googletrans
 
