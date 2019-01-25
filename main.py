@@ -3,6 +3,7 @@ from urllib.parse import quote
 import command
 import firefox
 
+
 def parameter_error():
     print('Insufficient Parameter Specified')
     exit(0)
@@ -141,6 +142,23 @@ def main():
             parameter_error()
         parameter['command'] = 'whatis ' + parameter['command']
         command.execute_command(parameter)
+    elif action == 'loadFirefox':
+        try:
+            parameter['saveFile']
+        except KeyError:
+            parameter_error()
+        print('::loadFirefox::')
+        print(parameter['saveFile'])
+        firefox.load(parameter)
+    elif action == 'saveFirefox':
+        try:
+            parameter['saveFile']
+        except KeyError:
+            parameter_error()
+        print('::saveFirefox::')
+        print(parameter['saveFile'])
+        firefox.save(parameter)
+
     else:
         print('Undefined Action')
 
