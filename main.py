@@ -2,7 +2,7 @@ import sys
 from urllib.parse import quote
 import command
 import firefox
-
+import file
 
 def parameter_error():
     print('Insufficient Parameter Specified')
@@ -158,6 +158,14 @@ def main():
         print('::saveFirefox::')
         print(parameter['saveFile'])
         firefox.save(parameter)
+    elif action == 'fileio':
+        try:
+            parameter['filePath']
+        except KeyError:
+            parameter_error()
+        print('::fileio::')
+        print(parameter['filePath'])
+        file.fileio()
 
     else:
         print('Undefined Action')
