@@ -1,6 +1,7 @@
 package core;
 
 import com.jfoenix.controls.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import java.lang.reflect.Field;
@@ -17,7 +18,9 @@ public class Controller {
     private boolean isProcessing = false;
     private Thread voiceThread;
 
-    public void action() {
+    @FXML
+    public void onGoAction(ActionEvent actionEvent) {
+        System.out.println("action Running");
         if(isProcessing) {
             isProcessing = !isProcessing;
             if(voiceThread.isAlive()) {
@@ -27,9 +30,9 @@ public class Controller {
         }
         else {
             isProcessing = !isProcessing;
-            if(inputField.getText().equals("")) {
-                return;
-            }
+//            if(inputField.getText().equals("")) {
+//                return;
+//            }
             //setting GOOGLE_APPLICATION_CREDENTIALS variable
             setEnv("GOOGLE_APPLICATION_CREDENTIALS", "/home/iosdev747/Downloads/creds.json");
             voiceThread = new Thread(new Recognizer());
