@@ -27,7 +27,7 @@ public class Recognizer implements Runnable {
 
         // Capture Microphone Audio Data
         try {
-
+            System.out.println("starting recognizer");
             // Signed PCM AudioFormat with 16kHz, 16 bit sample size, mono
             int sampleRate = 16000;
             AudioFormat format = new AudioFormat(sampleRate, 16, 1, true, false);
@@ -43,7 +43,7 @@ public class Recognizer implements Runnable {
             line = (TargetDataLine) AudioSystem.getLine(info);
             line.open(format);
             line.start();
-
+            System.out.println("setting audio input stream");
             // Audio Input Stream
             audio = new AudioInputStream(line);
 
@@ -59,6 +59,7 @@ public class Recognizer implements Runnable {
 
                         public void onStart(StreamController controller) {
                             //empty voice output
+                            System.out.println("Say : ");
                             DAO.voiceOutput = "";
                         }
 

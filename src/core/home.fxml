@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="core.Controller">
    <children>
-      <JFXTextField fx:id="inputField" layoutX="50.0" layoutY="14.0" prefHeight="35.0" prefWidth="300.0" />
-      <JFXButton fx:id="goButton" layoutX="182.0" layoutY="137.0" onAction="#action" text="Go" />
-      <Label layoutX="25.0" layoutY="266.0" prefHeight="20.0" prefWidth="350.0" text="O/P" />
+      <JFXTextField fx:id="inputField" layoutX="50.0" layoutY="14.0" prefHeight="35.0" prefWidth="250.0" />
+      <JFXButton fx:id="goButton" layoutX="349.0" layoutY="19.0" onAction="#onGoAction" text="Go" />
+      <JFXListView fx:id="list" layoutY="70.0" prefHeight="225.0" prefWidth="400.0" />
    </children>
 </AnchorPane>
