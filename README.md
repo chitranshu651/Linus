@@ -7,15 +7,15 @@
  * Necessary Linux Commands
  * Usage Monitor
  * Stackoverflow and GeekforGeeks search
+ * Error and Exception Search
+ * Change working environment
+ * Firefox State History
  * IP Messaging
  * Dictionary and Weather
- * Firefox State History
  * Music Player
- * Change working environment
  * File Sharing
  * Google Search
  * Alarm
- * Error and Exception Search
  * File Search
  * General Knowledge
  
