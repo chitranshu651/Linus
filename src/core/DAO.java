@@ -11,4 +11,5 @@ public class DAO {
     static String voiceOutput;
     public static Controller controller;
     static Path pwd; //for sending path to commands
+    static Output output;
 }
