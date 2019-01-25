@@ -3,9 +3,6 @@ from urllib.parse import quote
 import command
 import firefox
 
-
-parameter = {}
-
 def parameter_error():
     print('Insufficient Parameter Specified')
     exit(0)
@@ -15,7 +12,7 @@ def main():
     arguments = sys.argv[1:]
     print(arguments)
     action = arguments[0]
-    global parameter
+    parameter = {}
     try:
         parameter = dict(item.split(":") for item in arguments[1].split(","))
     except:
@@ -39,7 +36,7 @@ def main():
             'absDestPath']
         print('::cp::')
         print(parameter['command'])
-        command.execute_command()
+        command.execute_command(parameter)
     elif action == 'devdocs':
         try:
             parameter['query']
@@ -48,7 +45,7 @@ def main():
         parameter['url'] = 'devdocs.io/search?q=' + quote(parameter['query'])
         print('::devdocs::')
         print(parameter['url'])
-        firefox.open_url()
+        firefox.open_url(parameter)
     else:
         print('Undefined Action')
 
