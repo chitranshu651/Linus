@@ -28,9 +28,9 @@ def wolfram(parameter):
             order.append(1)
     Text.append({"data":"Powered by the Wolfram Language"})
     order.append(3)
-    file = open('output', 'w')
+    file = open('/home/iosdev747/Desktop/Linus/Linus/output.txt', 'w')
     data = {}
-    data['title'] = title
+    data['title'] = title.replace('+', ' ')
     data['order'] = order
     data['Image'] = Image
     data['URI'] = URI
@@ -42,22 +42,22 @@ def wolfram(parameter):
 
 
 def google(parameter):
-    parameter['search_string'] = parameter['search_string'].replace("#"," ")
-    if parameter['search_engine'] == 'Google':
-        parameter['url'] = 'https://google.com/search?q=' + quote(parameter['search_string'])
-    elif parameter['search_engine'] == 'Wikipedia':
-        parameter['url'] = 'https://en.wikipedia.org/wiki/' + quote(parameter['search_string'])
-    elif parameter['search_engine'] == 'Amazon':
-        parameter['url'] = 'https://www.amazon.in/s/?field-keywords=' + quote(parameter['search_string'])
-    elif parameter['search_engine'] == 'DuckDuckGo':
-        parameter['url'] = 'https://duckduckgo.com/?q=' + quote(parameter['search_string'])
-    elif parameter['search_engine'] == 'Bing':
-        parameter['url'] = 'https://bing.com/search?q=' + quote(parameter['search_string'])
-    elif parameter['search_engine'] == 'Stackoverflow':
-        parameter['url'] = 'https://stackoverflow.com/search?q=' + quote(parameter['search_string'])
+    parameter['search-string'] = parameter['search-string'].replace("#"," ")
+    if parameter['search-engine'] == 'Google':
+        parameter['url'] = 'https://google.com/search?q=' + quote(parameter['search-string'])
+    elif parameter['search-engine'] == 'Wikipedia':
+        parameter['url'] = 'https://en.wikipedia.org/wiki/' + quote(parameter['search-string'])
+    elif parameter['search-engine'] == 'Amazon':
+        parameter['url'] = 'https://www.amazon.in/s/?field-keywords=' + quote(parameter['search-string'])
+    elif parameter['search-engine'] == 'DuckDuckGo':
+        parameter['url'] = 'https://duckduckgo.com/?q=' + quote(parameter['search-string'])
+    elif parameter['search-engine'] == 'Bing':
+        parameter['url'] = 'https://bing.com/search?q=' + quote(parameter['search-string'])
+    elif parameter['search-engine'] == 'Stackoverflow':
+        parameter['url'] = 'https://stackoverflow.com/search?q=' + quote(parameter['search-string'])
     else:
         parameter['url'] = 'wolfram'
-        parameter['query'] = parameter['search_string']
+        parameter['query'] = parameter['search-string']
     print(parameter['url'])
     if not parameter['url'] == 'wolfram':
         firefox.open_url(parameter)

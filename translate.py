@@ -4,16 +4,17 @@ from googletrans import Translator
 
 def translate(parameter):
     translator = Translator()
-    ans =translator.translate(parameter['query'], dest=parameter['language'])
+    ans =translator.translate(parameter['query'], dest=parameter['langauge'])
     print(ans.text)
-    file = open('output', 'w')
+    file = open('/home/iosdev747/Desktop/Linus/Linus/output.txt', 'w')
+
     data = {}
     order = []
     Image = []
     URI = []
     Text = []
     order.append(3)
-    Text.append(ans.text)
+    Text.append({"data":ans.text})
     data['title'] = 'translation of ' + parameter['query']
     data['order'] = order
     data['Image'] = Image
