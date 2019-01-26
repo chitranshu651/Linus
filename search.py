@@ -7,7 +7,7 @@ import firefox
 
 def wolfram(parameter):
     from credentials import app_id
-    url = "http://api.wolframalpha.com/v2/query?input="+parameter['query']+"&appid="+app_id
+    url = "http://api.wolframalpha.com/v2/query?input="+parameter['query'].replace(" ","+").replace("#","+")+"&appid="+app_id
     xml_data = urlopen(url).read()
     root = ET.fromstring(xml_data)
     title = parameter['query']
@@ -15,6 +15,8 @@ def wolfram(parameter):
     Image = []
     URI = []
     Text = []
+    print('url: ' + url)
+    print("----"*10)
     for pod in root.findall('pod'):
         print('-------------------------------------------\n\n')
         print(str(pod.attrib).split("'")[3])
@@ -26,7 +28,6 @@ def wolfram(parameter):
             order.append(1)
     Text.append({"data":"Powered by the Wolfram Language"})
     order.append(3)
-    #make json for printing output
     file = open('output', 'w')
     data = {}
     data['title'] = title
@@ -34,6 +35,7 @@ def wolfram(parameter):
     data['Image'] = Image
     data['URI'] = URI
     data['Text'] = Text
+    data['command'] = ""
     json_data = json.dumps(data)
     file.write(json_data)
     exit(0)

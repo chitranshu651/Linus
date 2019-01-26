@@ -8,5 +8,6 @@ def fileio(parameter):
     response = requests.post('https://file.io/', files=files)
     if str(response.json()).split("'")[2].__contains__('True'):
         print(str(response.json()).split("'")[9])
+        parameter['result'] = str(response.json()).split("'")[9]
     else:
         print('fail')
