@@ -280,6 +280,26 @@ def main():
         print(parameter['location'])
         parameter['query'] = 'weather+at+' + parameter['location'].replace(" ","+").replace("#","+")
         search.wolfram(parameter)
+    #todo change Java environment
+    elif action == 'changeJava':
+        try:
+            parameter['command']
+        except KeyError:
+            parameter_error()
+        print('::cmd::')
+        parameter['command'] = './skills/setJava.sh '+ parameter['version'] + " " + parameter['open']
+        print(parameter['command'])
+        build_json(action,parameter['command'],command.execute_command(parameter))
+    #todo change Python Environment
+    elif action == 'changePython'
+        try:
+            parameter['command']
+        except KeyError:
+            parameter_error()
+        print('::cmd::')
+        parameter['command'] = './skills/setPython.sh '+ parameter['version']
+        print(parameter['command'])
+        build_json(action,parameter['command'],command.execute_command(parameter))
     #todo check wolfram
     elif action == 'dictionary':
         try:
