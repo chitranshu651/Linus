@@ -58,7 +58,7 @@ def show(parameter):
         if d not in new_ans:
             new_ans.append(d)
     print(new_ans)
-    file = open('output', 'w')
+    file = open('/home/iosdev747/Desktop/Linus/Linus/output.txt', 'w')
     data = {}
     order = []
     Image = []

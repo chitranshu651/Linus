@@ -19,7 +19,7 @@ def debug():
 
 
 def build_json(action,cmd,str):
-    file = open('output', 'w')
+    file = open('/home/iosdev747/Desktop/Linus/Linus/output.txt', 'w')
     data = {}
     order = []
     Image = []
@@ -40,10 +40,11 @@ def build_json(action,cmd,str):
 
 
 def main():
+    print("PATH IN PYTHON: "+sys.argv[0])
     arguments = sys.argv[1:]
     print(arguments)
     action = arguments[0]
-    arguments[1] = arguments[1].replace("desktop","Desktop").replace("downloads","Downloads").replace("music","Music")
+    arguments[1] = arguments[1].replace("desktop","Desktop").replace("downloads","Downloads").replace("music","Music").replace("documents","Documents")
     parameter = {}
     try:
         parameter = dict(item.split(":") for item in arguments[1].split(","))
@@ -93,9 +94,9 @@ def main():
 
     elif action == 'ps':
         print('::ps::')
-        parameter['command'] = 'ps -x | grep pts'
+        parameter['command'] = 'bash ../htop.sh'
         print(parameter['command'])
-        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", 'htop', command.execute_command(parameter))
 
     elif action == 'kill':
         try:
@@ -107,15 +108,12 @@ def main():
         print(parameter['command'])
         command.execute_command(parameter)
         build_json("Killed " + parameter['pid'] + " process.", parameter['command'], "")
+
     elif action == 'man':
-        try:
-            parameter['command']
-        except KeyError:
-            parameter_error()
-        parameter['command'] = 'man ' + parameter['command'] + '| cat'
         print('::man::')
+        parameter['command'] = 'bash ../man.sh ' + parameter['command']
         print(parameter['command'])
-        build_json("Here is what I found", parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", 'man ' + parameter['command'].split(' ')[2], command.execute_command(parameter))
 
     elif action == 'move':
         try:
@@ -134,35 +132,35 @@ def main():
         print(parameter['command'])
         build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
-    elif action == 'rmdir':
-        try:
-            parameter['absPath']
-            parameter['pwd']
-            parameter['directoryName']
-        except KeyError:
-            parameter_error()
-        if parameter['absPath'] == "":
-            parameter['absPath'] = parameter['pwd']
-        parameter['absPath'] = '/'+parameter['absPath'].replace("#","/")+'/'
-        parameter['command'] = 'rm -r ' + parameter['absPath'] + parameter['directoryName']
-        print('::rmdir::')
-        print(parameter['command'])
-        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
+    # elif action == 'rmdir':
+    #     try:
+    #         parameter['absPath']
+    #         parameter['pwd']
+    #         parameter['directoryName']
+    #     except KeyError:
+    #         parameter_error()
+    #     if parameter['absPath'] == "":
+    #         parameter['absPath'] = parameter['pwd']
+    #     parameter['absPath'] = '/'+parameter['absPath'].replace("#","/")+'/'
+    #     parameter['command'] = 'rm -r ' + parameter['absPath'] + parameter['directoryName']
+    #     print('::rmdir::')
+    #     print(parameter['command'])
+    #     build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
-    elif action == 'rm':
-        try:
-            parameter['absPath']
-            parameter['pwd']
-            parameter['fileName']
-        except KeyError:
-            parameter_error()
-        if parameter['absPath'] == "":
-            parameter['absPath'] = parameter['pwd']
-        parameter['absPath'] = '/'+parameter['absPath'].replace("#","/")+'/'
-        parameter['command'] = 'rm ' + parameter['absPath'] + parameter['fileName']
-        print('::rm::')
-        print(parameter['command'])
-        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
+    # elif action == 'rm':
+    #     try:
+    #         parameter['absPath']
+    #         parameter['pwd']
+    #         parameter['fileName']
+    #     except KeyError:
+    #         parameter_error()
+    #     if parameter['absPath'] == "":
+    #         parameter['absPath'] = parameter['pwd']
+    #     parameter['absPath'] = '/'+parameter['absPath'].replace("#","/")+'/'
+    #     parameter['command'] = 'rm ' + parameter['absPath'] + parameter['fileName']
+    #     print('::rm::')
+    #     print(parameter['command'])
+    #     build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'ls':
         try:
@@ -170,17 +168,19 @@ def main():
             parameter['path']
         except KeyError:
             parameter_error()
+        if parameter['path']=="":
+            parameter['path']=parameter['pwd']
         print('::ls::')
         print(parameter['pwd'])
         print(parameter['path'])
-        parameter['command'] = 'ls /' + parameter['pwd'].replace("#","/") + '/' + parameter['path'].replace("#"," ")
+        parameter['command'] = 'ls /'+ parameter['path'].replace("#","/")
         print(parameter['command'])
         build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
-
-    elif action == 'htop':
-        print('::htop::')
-        parameter['command'] = "top -n 1 -b"
-        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
+#remove htop as replaced by ps
+    # elif action == 'htop':
+    #     print('::htop::')
+    #     parameter['command'] = "top -n 1 -b"
+    #     build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'whatis':
         try:
@@ -188,6 +188,7 @@ def main():
         except KeyError:
             parameter_error()
         parameter['command'] = 'whatis ' + parameter['command']
+        print(command.execute_command(parameter))
         build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'loadFirefox':
@@ -234,25 +235,27 @@ def main():
         parameter['filePath'] = '/'+parameter['pwd'].replace("#","/")+'/'+parameter['filePath'].replace("#","/")
         print(parameter['filePath'])
         file.fileio(parameter)
-        build_json("File Sharing Link " , "", parameter['result'])
+        build_json("File Sharing Link", "", parameter['result'])
 
-    elif action == "fsearch":
-        try:
-            parameter['key']
-        except KeyError:
-            parameter_error()
-        parameter['command'] = "locate " + parameter['key'].replace('#', '\ ')
-        print('::fsearch::')
-        print(parameter['command'])
-        build_json("Here are your search results", parameter['command'], command.execute_command(parameter))
+    # elif action == "fsearch":
+    #     try:
+    #         parameter['key']
+    #     except KeyError:
+    #         parameter_error()
+    #     parameter['command'] = "locate " + parameter['key'].replace('#', '\ ')
+    #     print('::fsearch::')
+    #     print(parameter['command'])
+    #     print(command.execute_command(parameter))
+    #     build_json("Here are your search results", parameter['command'], command.execute_command(parameter))
 
     elif action == "gsearch":
         try:
-            parameter['search_string']
-            parameter['search_engine']
+            parameter['query']
+            parameter['search-engine']
         except KeyError:
             parameter_error()
         print('::gsearch::')
+        parameter['search-string'] = parameter['query']
         search.google(parameter)
 
     elif action == 'wsearch':
@@ -267,7 +270,7 @@ def main():
     elif action == 'translate':
         try:
             parameter['query']
-            parameter['langauge']
+            parameter['langauge']   
         except KeyError:
             parameter_error()
         print('::translate::')
@@ -302,7 +305,7 @@ def main():
         except KeyError:
             parameter_error()
         print('::cmd::')
-        parameter['command'] = './skills/setJava.sh '+ parameter['version'] + " " + parameter['open']
+        parameter['command'] = 'bash ./skills/setJava.sh '+ parameter['version'] + " " + parameter['open']
         print(parameter['command'])
         command.execute_command(parameter)
         build_json("Java Environment variable changed","","")
@@ -313,7 +316,7 @@ def main():
         except KeyError:
             parameter_error()
         print('::cmd::')
-        parameter['command'] = './skills/setPython.sh '+ parameter['version']
+        parameter['command'] = 'bash ./skills/setPython.sh '+ parameter['version']
         command.execute_command(parameter)
         build_json("Python Environment variable changed","","")
 
@@ -334,14 +337,17 @@ def main():
     elif action =='timer':
         try:
            parameter['message']
-           parameter['seconds']
+           parameter['duration']
         except KeyError:
             parameter_error()
         print('::cmd::')
-        parameter['command'] = 'bash ./skills/timer.sh '+ parameter['seconds'] + " " + parameter['message'].replace("#","\ ")
+        parameter['seconds'] = parameter['duration']
+        print(parameter['duration'].split(",")[0].split(":")[1])
+        print(parameter['duration'].split(",")[1].split(":")[1])
+        parameter['command'] = 'bash ./skills/timer.sh '+ parameter['duration'] + " " + parameter['message'].replace("#","\ ")
         print(parameter['command'])
         command.execute_command(parameter)
-        build_json("Timer set for "+parameter['seconds']+" seconds", "", "")
+        build_json("Timer set for "+parameter['duration']+" seconds", "", "")
 
     elif action == 'musicplayer':
         try:
@@ -350,7 +356,7 @@ def main():
         except KeyError:
             parameter_error()
         print('::cmd::')
-        parameter['command'] = 'bash ./skills/musicPlayer.sh '+ '/'+parameter['absPath'].replace("#","/")+'/'+parameter['fileName']+".mp3"
+        parameter['command'] = 'bash ../skills/musicPlayer.sh '+ '/'+parameter['absPath'].replace("#","/")+'/'+parameter['fileName']+".mp3"
         print(parameter['command'])
         command.execute_command(parameter)
         build_json("Now Playing Music", "", "")
