@@ -11,8 +11,8 @@ def save(parameter):
     from credentials import connection
     print("Opened database successfully")
 
-    str = (str(subprocess.check_output(['bash', 'path.sh'])).split("'")[1])[:-2]
-    with open(str+"/recovery.jsonlz4", "rb") as read_file:
+    string = (str(subprocess.check_output(['bash', 'path.sh'])).split("'")[1])[:-2]
+    with open(string+"/recovery.jsonlz4", "rb") as read_file:
         magic = read_file.read(8)
         jdata = json.loads(lz4.block.decompress(read_file.read()).decode("utf-8"))
         nwin = 0
@@ -30,30 +30,51 @@ def save(parameter):
                 cur.execute(strr)
                 connection.commit()
     time.sleep(1)
-    print(("=" * 20 + "\n") * 2)
-
     print("Records created successfully")
     connection.close()
-    print("done")
-
 
 def load(parameter):
     import json
     from credentials import client
-    print('client created')
     result = client.execute('{firefox (where: {fileName: {_eq:\"' + parameter['saveFile'] + '\"}}){id windowNumber tabNumber timestamp URI }}')
-    print('executed')
-    print(result)
     json_obj = json.loads(result)
-    print(json_obj)
     res = json_obj['data']
-    print(res)
     for i in res['firefox']:
-        print(i['id'])
-        print(i['windowNumber'])
-        print(i['tabNumber'])
-        print(i['timestamp'])
-        print(i['URI'])
         parameter['url'] = i['URI']
         open_url(parameter)
-        print('=' * 40)
+
+
+def show(parameter):
+    import json
+    from credentials import client
+    ans = []
+    result = client.execute('{firefox {fileName }}')
+    json_obj = json.loads(result)
+    res = json_obj['data']
+    for i in res['firefox']:
+        ans.append(i['fileName'])
+    new_ans = []
+    for d in ans:
+        if d not in new_ans:
+            new_ans.append(d)
+    print(new_ans)
+    file = open('output', 'w')
+    data = {}
+    order = []
+    Image = []
+    URI = []
+    Text = []
+
+    for a in new_ans:
+        order.append(3)
+        Text.append({"data": a})
+        print(a+'---')
+    data['title'] = "Here is your results"
+    data['order'] = order
+    data['Image'] = Image
+    data['URI'] = URI
+    data['Text'] = Text
+    data['command'] = ""
+    json_data = json.dumps(data)
+    file.write(json_data)
+    file.close()

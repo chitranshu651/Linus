@@ -17,6 +17,7 @@ def parameter_error():
 def debug():
     pass
 
+
 def build_json(action,cmd,str):
     file = open('output', 'w')
     data = {}
@@ -25,7 +26,7 @@ def build_json(action,cmd,str):
     URI = []
     Text = []
     order.append(3)
-    Text.append(str)
+    Text.append(Text.append({"data": str}))
     data['title'] = action
     data['order'] = order
     data['Image'] = Image
@@ -68,7 +69,7 @@ def main():
             'absDestPath']
         print('::cp::')
         print(parameter['command'])
-        build_json(action,parameter['command'],command.execute_command(parameter))
+        build_json("Command is Being Executed",parameter['command'],command.execute_command(parameter))
     elif action == 'devdocs':
         try:
             parameter['query']
@@ -87,13 +88,13 @@ def main():
         print('::cmd::')
         parameter['command'] = parameter['command'].replace("#"," ")
         print(parameter['command'])
-        build_json(action,parameter['command'],command.execute_command(parameter))
+        build_json("Command is Being Executed",parameter['command'],command.execute_command(parameter))
 
     elif action == 'ps':
         print('::ps::')
         parameter['command'] = 'ps -x | grep pts'
         print(parameter['command'])
-        build_json(action, parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'kill':
         try:
@@ -113,7 +114,7 @@ def main():
         parameter['command'] = 'man ' + parameter['command'] + '| cat'
         print('::man::')
         print(parameter['command'])
-        build_json(action, parameter['command'], command.execute_command(parameter))
+        build_json("Here is what I found", parameter['command'], command.execute_command(parameter))
 
     elif action == 'move':
         try:
@@ -130,7 +131,7 @@ def main():
         parameter['command'] = 'mv ' + parameter['absSrcPath'] + '/' + parameter['fileName'] + ' ' + parameter['absDestPath']
         print('::mv::')
         print(parameter['command'])
-        build_json("File Moved", parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'rmdir':
         try:
@@ -145,7 +146,7 @@ def main():
         parameter['command'] = 'rm -r ' + parameter['absPath'] + parameter['directoryName']
         print('::rmdir::')
         print(parameter['command'])
-        build_json(action, parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'rm':
         try:
@@ -160,7 +161,7 @@ def main():
         parameter['command'] = 'rm ' + parameter['absPath'] + parameter['fileName']
         print('::rm::')
         print(parameter['command'])
-        build_json(action, parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'ls':
         try:
@@ -173,12 +174,12 @@ def main():
         print(parameter['path'])
         parameter['command'] = 'ls /' + parameter['pwd'].replace("#","/") + '/' + parameter['path'].replace("#"," ")
         print(parameter['command'])
-        build_json(action, parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'htop':
         print('::htop::')
         parameter['command'] = "top -n 1 -b"
-        build_json(action, parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'whatis':
         try:
@@ -186,9 +187,8 @@ def main():
         except KeyError:
             parameter_error()
         parameter['command'] = 'whatis ' + parameter['command']
-        build_json(action, parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
-    #todo check
     elif action == 'loadFirefox':
         try:
             parameter['saveFile']
@@ -197,8 +197,12 @@ def main():
         print('::loadFirefox::')
         print(parameter['saveFile'])
         firefox.load(parameter)
-        build_json("Loaded" + parameter['saveFile'] + "Firefox State", "", "")
-    #todo check
+        build_json("Loading " + parameter['saveFile'] + "Firefox State", "", "")
+
+    elif action == 'showFirefox':
+        print('::showFirefox::')
+        firefox.show(parameter)
+
     elif action == 'saveFirefox':
         try:
             parameter['saveFile']
@@ -206,7 +210,8 @@ def main():
             parameter_error()
         print('::saveFirefox::')
         print(parameter['saveFile'])
-        build_json("Saved" + parameter['saveFile'] + "Firefox State", "", "")
+        build_json("Saving" + parameter['saveFile'] + "Firefox State", "", "")
+        firefox.save(parameter)
 
     elif action == 'url':
         try:
@@ -217,7 +222,7 @@ def main():
         print(parameter['url'])
         firefox.open_url(parameter)
         build_json("Opened " + parameter['url'], "", "")
-    #todo check
+
     elif action == 'fileio':
         try:
             parameter['pwd']
@@ -238,8 +243,8 @@ def main():
         parameter['command'] = "locate " + parameter['key'].replace('#', '\ ')
         print('::fsearch::')
         print(parameter['command'])
-        build_json(action, parameter['command'], command.execute_command(parameter))
-    #todo check wolfram
+        build_json("Here are your search results", parameter['command'], command.execute_command(parameter))
+
     elif action == "gsearch":
         try:
             parameter['search_string']
@@ -248,9 +253,7 @@ def main():
             parameter_error()
         print('::gsearch::')
         search.google(parameter)
-        if not parameter['url'] == 'wolfram':
-            build_json("Opened", "", parameter['url'])
-    #todo check wolfram
+
     elif action == 'wsearch':
         try:
             parameter['query']
@@ -259,7 +262,7 @@ def main():
         print('::wolfsearch::')
         print(parameter['query'])
         search.wolfram(parameter)
-    #todo check wolfram
+
     elif action == 'translate':
         try:
             parameter['query']
@@ -270,7 +273,7 @@ def main():
         print(parameter['query'])
         print(parameter['langauge'])
         translate.translate(parameter)
-    #todo check wolfram
+
     elif action == 'weather':
         try:
             parameter['location']
@@ -349,5 +352,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-#todo touch file
-#todo show firefox
