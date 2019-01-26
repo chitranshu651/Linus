@@ -291,7 +291,7 @@ def main():
         print(parameter['command'])
         build_json(action,parameter['command'],command.execute_command(parameter))
     #todo change Python Environment
-    elif action == 'changePython'
+    elif action == 'changePython':
         try:
             parameter['command']
         except KeyError:
@@ -300,6 +300,16 @@ def main():
         parameter['command'] = './skills/setPython.sh '+ parameter['version']
         print(parameter['command'])
         build_json(action,parameter['command'],command.execute_command(parameter))
+    #Alarm
+    elif action == 'alarm':
+        try:
+           parameter['command']
+        except KeyError:
+            parameter_error()
+        print('::cmd::')
+        parameter['command'] = './skills/alarm.sh '+ parameter['hour'] + " " + parameter['min'] + " " + parameter['message']
+        print(parameter['command'])
+        build_json(action,parameter['command'],command.execute_command(parameter)) 
     #todo check wolfram
     elif action == 'dictionary':
         try:
