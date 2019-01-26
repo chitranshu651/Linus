@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#Takes in 1 arguement version number 2 or 3
 if [ $# == 0 ]; then
     echo "Not enough arguements"
 elif [ $# == 1 ] ; then
