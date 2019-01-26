@@ -16,14 +16,13 @@
 
 1) [Features](#fet)
 2) [Installation](#install)
-3) [Dependencies](#depend)
+3) [Technology Stack](#depend)
 4) [Feedback](#feed)
-5) [Contribute](#contri)
+5) [Contribute](#contri)\ 
 
 <a name="fet"></a>
 ## Features
  * Speech-to-Text
- * Mood Analysis
  * Necessary Linux Commands
  * Usage Monitor
  * Stackoverflow and GeekforGeeks search
@@ -37,6 +36,7 @@
  * Alarm
  * File Search
  * General Knowledge
+ * Mood Analysis
  
 <a name="install"></a> 
 ## Installation
@@ -44,20 +44,24 @@
 ```bash
 git clone https://github.com/chitranshu651/Linus.git
 ```
-2) Install the dependencies given below
+2) Install the dependencies given [below](#depend)
 3)  Run:
-```java
-javac filename.java
-java file
+```bash
+./main.sh
 ```
 
 <a name="depend"></a>
-## Dependencies
+## Technology Stack
 1) API.AI
 2) Google Cloud Speech to Text
-3) Requests
+3) requests
 4) googletrans
 5) jfoenix 8.0.7
+6) urlLib
+7) graphQlClient
+8) psycopg2
+9) lz4
+10) vaderSentiment
 
 <a name="feed"></a>
 ## Feedback
