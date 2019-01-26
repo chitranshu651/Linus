@@ -29,7 +29,6 @@
 
 ****************************************************************/
 .scroll-bar {
-    -fx-background-color: rgb(96, 96, 96);
     -fx-background-radius: 20px;
     -fx-background-color: transparent;
 }
@@ -84,14 +83,12 @@
 
 .scroll-bar:horizontal .increment-arrow {
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
-    -fx-background-color: rgb(211, 211, 211);
     -fx-padding: 0.25em;
     -fx-rotate: -90;
     -fx-background-color: transparent;
 }
 
 .scroll-bar:vertical .increment-arrow {
-    -fx-background-color: rgb(211, 211, 211);
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-padding: 0.25em;
     -fx-rotate: 0;
@@ -99,7 +96,6 @@
 }
 
 .scroll-bar:horizontal .decrement-arrow {
-    -fx-background-color: rgb(211, 211, 211);
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-padding: 0.25em;
     -fx-rotate: 90;
@@ -107,7 +103,6 @@
 }
 
 .scroll-bar:vertical .decrement-arrow {
-    -fx-background-color: rgb(211, 211, 211);
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-padding: 0.25em;
     -fx-rotate: -180;
