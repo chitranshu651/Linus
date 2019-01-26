@@ -8,8 +8,8 @@ def execute_command(parameter):
     with open("output.data", "r") as outfile, open("error.data", "r") as errfile:
         if errfile.read():
             return "Error occurred"
-        return outfile.read()
 
+        return outfile.read()
 
 '''
 It takes sudo passoword using environment variable "password"
