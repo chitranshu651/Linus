@@ -13,11 +13,11 @@ import java.util.List;
  */
 public class Output {
     String title;
-    String commandExecuted;
     List<Integer> order;
     List<Image> Image;
     List<URI> URI;
     List<Text> Text;
+    String command;
 
     public String getTitle() {
         return title;
@@ -25,14 +25,6 @@ public class Output {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getCommandExecuted() {
-        return commandExecuted;
-    }
-
-    public void setCommandExecuted(String title) {
-        this.commandExecuted = commandExecuted;
     }
 
     public List<Integer> getOrder() {
@@ -66,4 +58,8 @@ public class Output {
     public void setText(List<core.template.Text> text) {
         Text = text;
     }
+
+    public String getCommand() { return command; }
+
+    public void setCommand(String title) { this.command = command; }
 }
