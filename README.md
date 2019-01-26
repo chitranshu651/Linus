@@ -2,6 +2,10 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![Python](https://img.shields.io/badge/python-v3.7+-blue.svg)
 ![Java](https://img.shields.io/badge/java-8-blue.svg)
+<p align="center">
+<img src="Assets/logo.jpg"/>
+  </p>
+  
 ## Introduction
   Linus is a virtual Linux AI aimed at helping Linux newcomers overcome the learning curve accompanied by switching to Linux such as learning the necessary commands and handling the errors that come up. Linus includes the ability to understand speech and execute commands presented by the user. It is also able to search common resource portals such as [Google](https://www.google.com), [Stackoverflow](https://www.stackoverflow.com) and [GeeksforGeeks](https://www.geeksforgeeks.com).
 
@@ -54,4 +58,6 @@ java file
 <img src="Assets/hack36.png" />
 </p>
  
+ ### Credits
+ <div>Logo made with <a href="https://www.designevo.com/en/" title="Free Online Logo Maker">DesignEvo</a></div>
 
