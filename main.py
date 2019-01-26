@@ -25,7 +25,8 @@ def build_json(action,cmd,str):
     Image = []
     URI = []
     Text = []
-    order.append(3)
+    if not str == "":
+        order.append(3)
     Text.append(Text.append({"data": str}))
     data['title'] = action
     data['order'] = order
@@ -283,57 +284,7 @@ def main():
         print(parameter['location'])
         parameter['query'] = 'weather+at+' + parameter['location'].replace(" ","+").replace("#","+")
         search.wolfram(parameter)
-    #todo change Java environment
-    elif action == 'changeJava':
-        try:
-            parameter['command']
-        except KeyError:
-            parameter_error()
-        print('::cmd::')
-        parameter['command'] = './skills/setJava.sh '+ parameter['version'] + " " + parameter['open']
-        print(parameter['command'])
-        build_json(action,parameter['command'],command.execute_command(parameter))
-    #todo change Python Environment
-    elif action == 'changePython':
-        try:
-            parameter['command']
-        except KeyError:
-            parameter_error()
-        print('::cmd::')
-        parameter['command'] = './skills/setPython.sh '+ parameter['version']
-        print(parameter['command'])
-        build_json(action,parameter['command'],command.execute_command(parameter))
-    #Alarm
-    elif action == 'alarm':
-        try:
-           parameter['command']
-        except KeyError:
-            parameter_error()
-        print('::cmd::')
-        parameter['command'] = './skills/alarm.sh '+ parameter['hour'] + " " + parameter['min'] + " " + parameter['message']
-        print(parameter['command'])
-        build_json(action,parameter['command'],command.execute_command(parameter))
-    #Timer
-    elif action =='timer':
-        try:
-           parameter['command']
-        except KeyError:
-            parameter_error()
-        print('::cmd::')
-        parameter['command'] = './skills/timer.sh '+ parameter['seconds'] + " " + parameter['message']
-        print(parameter['command'])
-        build_json(action,parameter['command'],command.execute_command(parameter))
-    #Play Music
-    elif action == 'musicplayer':
-         try:
-           parameter['command']
-        except KeyError:
-            parameter_error()
-        print('::cmd::')
-        parameter['command'] = './skills/musicPlayer.sh '+ parameter['absPath']
-        print(parameter['command'])
-        build_json(action,parameter['command'],command.execute_command(parameter)
-    #todo check wolfram
+
     elif action == 'dictionary':
         try:
             parameter['word']
@@ -343,6 +294,67 @@ def main():
         print('::dictionary::')
         print(parameter['query'])
         search.wolfram(parameter)
+
+    elif action == 'changeJava':
+        try:
+            parameter['version']
+            parameter['open']
+        except KeyError:
+            parameter_error()
+        print('::cmd::')
+        parameter['command'] = './skills/setJava.sh '+ parameter['version'] + " " + parameter['open']
+        print(parameter['command'])
+        command.execute_command(parameter)
+        build_json("Java Environment variable changed","","")
+
+    elif action == 'changePython':
+        try:
+            parameter['version']
+        except KeyError:
+            parameter_error()
+        print('::cmd::')
+        parameter['command'] = './skills/setPython.sh '+ parameter['version']
+        command.execute_command(parameter)
+        build_json("Python Environment variable changed","","")
+
+    elif action == 'alarm':
+        try:
+            parameter['hour']
+            parameter['min']
+            parameter['message']
+        except KeyError:
+            parameter_error()
+        print('::cmd::')
+        parameter['command'] = 'bash ./skills/alarm.sh '+ parameter['hour'] + " " + parameter['min'] + " " + parameter['message'].replace("#","\ ")
+        print(parameter['command'])
+        command.execute_command(parameter)
+        build_json("Alarm set for "+parameter['hour']+":"+parameter['min'], "", "")
+
+    #Timer
+    elif action =='timer':
+        try:
+           parameter['message']
+           parameter['seconds']
+        except KeyError:
+            parameter_error()
+        print('::cmd::')
+        parameter['command'] = 'bash ./skills/timer.sh '+ parameter['seconds'] + " " + parameter['message'].replace("#","\ ")
+        print(parameter['command'])
+        command.execute_command(parameter)
+        build_json("Timer set for "+parameter['seconds']+" seconds", "", "")
+
+    elif action == 'musicplayer':
+        try:
+           parameter['absPath']
+           parameter['fileName']
+        except KeyError:
+            parameter_error()
+        print('::cmd::')
+        parameter['command'] = 'bash ./skills/musicPlayer.sh '+ '/'+parameter['absPath'].replace("#","/")+'/'+parameter['fileName']+".mp3"
+        print(parameter['command'])
+        command.execute_command(parameter)
+        build_json("Now Playing Music", "", "")
+
     elif action == 'debug':
         debug()
     else:
