@@ -45,7 +45,8 @@
 git clone https://github.com/chitranshu651/Linus.git
 ```
 2) Install the dependencies given [below](#depend)
-3)  Run:
+3) Edit credentials.py
+4)  Run:
 ```bash
 ./main.sh
 ```
