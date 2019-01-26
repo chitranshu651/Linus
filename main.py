@@ -210,7 +210,7 @@ def main():
             parameter_error()
         print('::saveFirefox::')
         print(parameter['saveFile'])
-        build_json("Loading" + parameter['saveFile'] + "Firefox State", "", "")
+        build_json("Saving" + parameter['saveFile'] + "Firefox State", "", "")
         firefox.save(parameter)
 
     elif action == 'url':
@@ -243,7 +243,7 @@ def main():
         parameter['command'] = "locate " + parameter['key'].replace('#', '\ ')
         print('::fsearch::')
         print(parameter['command'])
-        build_json(action, parameter['command'], command.execute_command(parameter))
+        build_json("Here are your search results", parameter['command'], command.execute_command(parameter))
 
     elif action == "gsearch":
         try:
@@ -253,8 +253,6 @@ def main():
             parameter_error()
         print('::gsearch::')
         search.google(parameter)
-        if not parameter['url'] == 'wolfram':
-            build_json("Opened", "", parameter['url'])
 
     elif action == 'wsearch':
         try:
@@ -285,7 +283,57 @@ def main():
         print(parameter['location'])
         parameter['query'] = 'weather+at+' + parameter['location'].replace(" ","+").replace("#","+")
         search.wolfram(parameter)
-
+    #todo change Java environment
+    elif action == 'changeJava':
+        try:
+            parameter['command']
+        except KeyError:
+            parameter_error()
+        print('::cmd::')
+        parameter['command'] = './skills/setJava.sh '+ parameter['version'] + " " + parameter['open']
+        print(parameter['command'])
+        build_json(action,parameter['command'],command.execute_command(parameter))
+    #todo change Python Environment
+    elif action == 'changePython':
+        try:
+            parameter['command']
+        except KeyError:
+            parameter_error()
+        print('::cmd::')
+        parameter['command'] = './skills/setPython.sh '+ parameter['version']
+        print(parameter['command'])
+        build_json(action,parameter['command'],command.execute_command(parameter))
+    #Alarm
+    elif action == 'alarm':
+        try:
+           parameter['command']
+        except KeyError:
+            parameter_error()
+        print('::cmd::')
+        parameter['command'] = './skills/alarm.sh '+ parameter['hour'] + " " + parameter['min'] + " " + parameter['message']
+        print(parameter['command'])
+        build_json(action,parameter['command'],command.execute_command(parameter))
+    #Timer
+    elif action =='timer':
+        try:
+           parameter['command']
+        except KeyError:
+            parameter_error()
+        print('::cmd::')
+        parameter['command'] = './skills/timer.sh '+ parameter['seconds'] + " " + parameter['message']
+        print(parameter['command'])
+        build_json(action,parameter['command'],command.execute_command(parameter))
+    #Play Music
+    elif action == 'musicplayer':
+         try:
+           parameter['command']
+        except KeyError:
+            parameter_error()
+        print('::cmd::')
+        parameter['command'] = './skills/musicPlayer.sh '+ parameter['absPath']
+        print(parameter['command'])
+        build_json(action,parameter['command'],command.execute_command(parameter)
+    #todo check wolfram
     elif action == 'dictionary':
         try:
             parameter['word']

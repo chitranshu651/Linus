@@ -14,6 +14,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -55,17 +58,12 @@ public class Controller {
             if(voiceThread.isAlive()) {
                 voiceThread.stop();
             }
-            goButton.setText("Go");
-        }
-        else {
-            isProcessing = !isProcessing;
             if(inputField.getText().equals("")) {
-                return;
+                inputField.setText(DAO.voiceOutput);
+                if(inputField.getText().equals("")) {
+                    return;
+                }
             }
-            //setting GOOGLE_APPLICATION_CREDENTIALS variable
-//            setEnv("GOOGLE_APPLICATION_CREDENTIALS", "/home/iosdev747/Downloads/creds.json");
-//            voiceThread = new Thread(new Recognizer());
-//            voiceThread.start();
             AIConfiguration configuration = new AIConfiguration("c3a31db2f9bc467abebad1e364b8ff9f");
 
             AIDataService dataService = new AIDataService(configuration);
@@ -101,7 +99,8 @@ public class Controller {
                             DAO.pwd = Paths.get(DAO.pwd.toString().concat(joiner.toString()));
                             return;
                         }
-                        System.out.println("output:" + response.getResult().getAction());
+                        System.out.println("output command:" + response.getResult().getAction());
+                        runPython(response.getResult().getAction(), hashMap);
                     }
                 } else {
                     System.err.println(response.getStatus().getErrorDetails());
@@ -109,7 +108,48 @@ public class Controller {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+            goButton.setText("Go");
+        }
+        else {
+            isProcessing = !isProcessing;
+            //setting GOOGLE_APPLICATION_CREDENTIALS variable
+            setEnv("GOOGLE_APPLICATION_CREDENTIALS", "/home/iosdev747/Downloads/creds.json");
+            voiceThread = new Thread(new Recognizer());
+            voiceThread.start();
             goButton.setText("Stop");
+        }
+    }
+
+    /**
+     * Method to run python command which is connected through dialogflow.
+     * @param action action to be taken
+     * @param hashMap parameters for taking that action
+     */
+    public void runPython(String action, HashMap<String, JsonElement> hashMap) {
+        StringBuilder str = new StringBuilder("python /home/iosdev747/PycharmProjects/test1/main.py " + action + " ");
+        for (Object o:hashMap.keySet().toArray()) {
+            str.append(o).append(":").append(hashMap.get(o).toString().replace(' ', '#')).append(",");
+        }
+        str.append("pwd").append(":").append(DAO.pwd.toString());
+        /*
+        sample output
+        String str = "python /home/abcd/test/main.py act1 Name1:Value1,Name2:Value2,Name3:Value3,pwd:path";
+         */
+        try {
+            String command = str + "; cat /home/iosdev747/PycharmProjects/test1/output";
+            Process proc = Runtime.getRuntime().exec(command);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+            String line = "";
+            while((line = reader.readLine()) != null) {
+                System.out.print(line + "\n");
+            }
+            try {
+                proc.waitFor();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
