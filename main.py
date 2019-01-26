@@ -17,6 +17,7 @@ def parameter_error():
 def debug():
     pass
 
+
 def build_json(action,cmd,str):
     file = open('output', 'w')
     data = {}
@@ -25,7 +26,7 @@ def build_json(action,cmd,str):
     URI = []
     Text = []
     order.append(3)
-    Text.append(str)
+    Text.append(Text.append({"data": str}))
     data['title'] = action
     data['order'] = order
     data['Image'] = Image
@@ -188,7 +189,6 @@ def main():
         parameter['command'] = 'whatis ' + parameter['command']
         build_json(action, parameter['command'], command.execute_command(parameter))
 
-    #todo check
     elif action == 'loadFirefox':
         try:
             parameter['saveFile']
@@ -198,7 +198,12 @@ def main():
         print(parameter['saveFile'])
         firefox.load(parameter)
         build_json("Loaded" + parameter['saveFile'] + "Firefox State", "", "")
-    #todo check
+
+    elif action == 'showFirefox':
+        print('::showFirefox::')
+        firefox.load(parameter)
+        build_json("Loaded" + parameter['saveFile'] + "Firefox State", "", "")
+
     elif action == 'saveFirefox':
         try:
             parameter['saveFile']
@@ -207,6 +212,7 @@ def main():
         print('::saveFirefox::')
         print(parameter['saveFile'])
         build_json("Saved" + parameter['saveFile'] + "Firefox State", "", "")
+
 
     elif action == 'url':
         try:
@@ -217,7 +223,7 @@ def main():
         print(parameter['url'])
         firefox.open_url(parameter)
         build_json("Opened " + parameter['url'], "", "")
-    #todo check
+
     elif action == 'fileio':
         try:
             parameter['pwd']
@@ -239,7 +245,7 @@ def main():
         print('::fsearch::')
         print(parameter['command'])
         build_json(action, parameter['command'], command.execute_command(parameter))
-    #todo check wolfram
+
     elif action == "gsearch":
         try:
             parameter['search_string']
@@ -250,7 +256,7 @@ def main():
         search.google(parameter)
         if not parameter['url'] == 'wolfram':
             build_json("Opened", "", parameter['url'])
-    #todo check wolfram
+
     elif action == 'wsearch':
         try:
             parameter['query']
@@ -259,7 +265,7 @@ def main():
         print('::wolfsearch::')
         print(parameter['query'])
         search.wolfram(parameter)
-    #todo check wolfram
+
     elif action == 'translate':
         try:
             parameter['query']
@@ -270,7 +276,7 @@ def main():
         print(parameter['query'])
         print(parameter['langauge'])
         translate.translate(parameter)
-    #todo check wolfram
+
     elif action == 'weather':
         try:
             parameter['location']
@@ -280,7 +286,7 @@ def main():
         print(parameter['location'])
         parameter['query'] = 'weather+at+' + parameter['location'].replace(" ","+").replace("#","+")
         search.wolfram(parameter)
-    #todo check wolfram
+
     elif action == 'dictionary':
         try:
             parameter['word']
@@ -299,5 +305,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-#todo touch file
-#todo show firefox
