@@ -3,6 +3,7 @@ from urllib.parse import quote
 import command
 import firefox
 import file
+import search
 
 def parameter_error():
     print('Insufficient Parameter Specified')
@@ -183,7 +184,10 @@ def main():
         print('::fsearch::')
         print(parameter['command'])
         command.execute_command(parameter)
-
+    elif action == 'wsearch':
+        print('::wolfsearch::')
+        print(parameter['query'])
+        search.wolfram()
     else:
         print('Undefined Action')
 
