@@ -11,6 +11,7 @@
 
 ## Features
  * Speech-to-Text
+ * Mood Analysis
  * Necessary Linux Commands
  * Usage Monitor
  * Stackoverflow and GeekforGeeks search
