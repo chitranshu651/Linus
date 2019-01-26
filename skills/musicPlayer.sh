@@ -18,7 +18,7 @@ do
 		line=$(echo $line | sed 's/ /\\ /g')
 		#echo 1 $line
     var="$var "$line""
-done <".music.txt"
+done < ~/.music.txt
 echo $var
 nvlc --started-from-file --playlist-enqueue $var
 rm -f ~/.music.txt
