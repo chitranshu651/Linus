@@ -42,6 +42,6 @@ java file
 
 # Hack36
 
-![Hack 36 logo](Assests/hack36.png)
+![Hack 36 logo](Assets/hack36.png)
  
 
