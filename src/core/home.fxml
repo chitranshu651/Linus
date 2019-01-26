@@ -2,13 +2,82 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXProgressBar?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="core.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="core.Controller">
    <children>
-      <JFXTextField fx:id="inputField" layoutX="50.0" layoutY="14.0" prefHeight="35.0" prefWidth="250.0" />
-      <JFXButton fx:id="goButton" layoutX="349.0" layoutY="19.0" onAction="#onGoAction" text="Go" />
-      <JFXListView fx:id="list" layoutY="70.0" prefHeight="225.0" prefWidth="400.0" />
+      <Pane maxHeight="80.0" maxWidth="600.0" minHeight="80.0" minWidth="600.0" prefHeight="80.0" prefWidth="600.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: white;">
+         <children>
+            <Label fx:id="ipLabel" layoutX="20.0" layoutY="16.0" text="IP : 888.888.8.888">
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="WHITE" />
+                        <Stop color="BLACK" offset="0.007434944237918215" />
+                        <Stop color="#333345" offset="0.234113712374582" />
+                        <Stop color="#2f4b72" offset="0.4882943143812708" />
+                        <Stop color="#26538d" offset="0.7432333304322959" />
+                        <Stop color="#0f66e8" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+            <Label fx:id="pwdLabel" layoutX="20.0" layoutY="48.0" text="Current Dir : /home/random/Desktop/folder1/dd/ddd/0">
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="WHITE" />
+                        <Stop color="BLACK" offset="0.007434944237918215" />
+                        <Stop color="#333345" offset="0.234113712374582" />
+                        <Stop color="#2f4b72" offset="0.4882943143812708" />
+                        <Stop color="#26538d" offset="0.7432333304322959" />
+                        <Stop color="#0f66e8" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+            <JFXTextField fx:id="inputField" focusColor="WHITE" layoutX="199.0" layoutY="11.0" prefWidth="350.0" promptText="Enter message" unFocusColor="#ffffff66" />
+            <JFXButton fx:id="goButton" layoutX="549.0" layoutY="11.0" onAction="#onGoAction" text="Go" textFill="#0400ff" />
+            <JFXProgressBar layoutX="15.0" layoutY="40.0" opacity="0.3" prefWidth="570.0" progress="1.0" />
+            <Label fx:id="cpuLabel" layoutX="511.0" layoutY="48.0" text="CPU : 100%">
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="WHITE" />
+                        <Stop color="BLACK" offset="0.007434944237918215" />
+                        <Stop color="#333345" offset="0.234113712374582" />
+                        <Stop color="#2f4b72" offset="0.4882943143812708" />
+                        <Stop color="#26538d" offset="0.7432333304322959" />
+                        <Stop color="#0f66e8" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+            <Label fx:id="ramLabel" layoutX="421.0" layoutY="48.0" text="RAM : 100%">
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="WHITE" />
+                        <Stop color="BLACK" offset="0.007434944237918215" />
+                        <Stop color="#333345" offset="0.234113712374582" />
+                        <Stop color="#2f4b72" offset="0.4882943143812708" />
+                        <Stop color="#26538d" offset="0.7432333304322959" />
+                        <Stop color="#0f66e8" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+            <JFXProgressBar layoutX="408.0" layoutY="40.0" opacity="0.3" prefHeight="34.0" prefWidth="1.0" progress="1.0" />
+            <JFXProgressBar layoutX="504.0" layoutY="40.0" opacity="0.3" prefHeight="34.0" prefWidth="1.0" progress="1.0" />
+            <JFXProgressBar layoutX="164.0" layoutY="8.0" opacity="0.3" prefHeight="34.0" prefWidth="1.0" progress="1.0" />
+         </children>
+      </Pane>
+      <JFXListView fx:id="list" layoutY="90.0" maxHeight="1000.0" maxWidth="600.0" minHeight="0.0" minWidth="600.0" prefHeight="470.0" prefWidth="600.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: white;" />
    </children>
 </AnchorPane>

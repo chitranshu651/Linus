@@ -15,7 +15,7 @@ public class Main extends Application {
         Parent root = loader.load();
         DAO.controller = loader.getController(); //save controller instance for calling updateGUI method from DAO
         primaryStage.setTitle("Voice-to-text");
-        primaryStage.setScene(new Scene(root, 400, 300));
+        primaryStage.setScene(new Scene(root, 600, 560));
         primaryStage.show();
     }
 

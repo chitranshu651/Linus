@@ -23,6 +23,18 @@ import java.util.StringJoiner;
 public class Controller {
 
     @FXML
+    private Label ipLabel;
+
+    @FXML
+    private Label pwdLabel;
+
+    @FXML
+    private Label cpuLabel;
+
+    @FXML
+    private Label ramLabel;
+
+    @FXML
     private JFXButton goButton;
 
     @FXML
