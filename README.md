@@ -1,6 +1,7 @@
-# Linus
+# Linus: The Linux Tutor
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![Python](https://img.shields.io/badge/python-v3.7+-blue.svg)
+![Java](https://img.shields.io/badge/java-8-blue.svg)
 ## Introduction
   Linus is a virtual Linux AI aimed at helping Linux newcomers overcome the learning curve accompanied by switching to Linux such as learning the necessary commands and handling the errors that come up. Linus includes the ability to understand speech and execute commands presented by the user. It is also able to search common resource portals such as [Google](https://www.google.com), [Stackoverflow](https://www.stackoverflow.com) and [GeeksforGeeks](https://www.geeksforgeeks.com).
 
@@ -39,9 +40,18 @@ java file
 1) Requests
 1) googletrans
 1) jfoenix 8.0.7
+### Powered By:
 
-# Hack36
+<img src="https://blog.dialogflow.com/images/logo.svg" width="300px"/><a href="https://hasura.io">
+  <img hspace="70px" width="250px" src="https://graphql-engine-cdn.hasura.io/img/powered_by_hasura_black.svg" />
+</a>
 
-![Hack 36 logo](Assets/hack36.png)
+<img src="https://lh3.googleusercontent.com/iDUNgf_-e5bF7SkzouPJJOQNvV1PIZ6JDHiuypxC5EUQmQFtf6-Youp1lss4KdcIMWQ" width="300px" alt="Wolfram Alpha"/><img src="https://blog.equinix.com/wp-content/uploads/2018/04/google-cloud.jpg" width="300px" hspace="70px"/>
+
+### Made at:
+
+<p align="center">
+<img src="Assets/hack36.png" />
+</p>
  
 
