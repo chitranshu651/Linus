@@ -14,6 +14,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.TargetDataLine;
 
+/**
+ * Class for recognizing voice (GCS text-to-voice)
+ */
 public class Recognizer implements Runnable {
 
     public void Recognizer() {
@@ -24,7 +27,7 @@ public class Recognizer implements Runnable {
 
         // Capture Microphone Audio Data
         try {
-
+            System.out.println("starting recognizer");
             // Signed PCM AudioFormat with 16kHz, 16 bit sample size, mono
             int sampleRate = 16000;
             AudioFormat format = new AudioFormat(sampleRate, 16, 1, true, false);
@@ -40,7 +43,7 @@ public class Recognizer implements Runnable {
             line = (TargetDataLine) AudioSystem.getLine(info);
             line.open(format);
             line.start();
-
+            System.out.println("setting audio input stream");
             // Audio Input Stream
             audio = new AudioInputStream(line);
 
@@ -55,11 +58,25 @@ public class Recognizer implements Runnable {
                     new ResponseObserver<StreamingRecognizeResponse>() {
 
                         public void onStart(StreamController controller) {
-                            // do nothing
+                            //empty voice output
+                            System.out.println("Say : ");
+                            DAO.voiceOutput = "";
                         }
 
                         public void onResponse(StreamingRecognizeResponse response) {
                             System.out.println(response);
+                            //pre-processing response to get text output from voice
+                            for (int i = -1; (i = response.toString().indexOf("transcript:", i + 1)) != -1; i++) {
+                                System.out.println(i);
+                                StringBuilder res = new StringBuilder();
+                                int j = i + 13;
+                                while(response.toString().charAt(j) != '"') {
+                                    res.append(response.toString().charAt(j));
+                                    j++;
+                                }
+                                DAO.voiceOutput = DAO.voiceOutput + res.toString().toLowerCase();
+                                System.out.println(DAO.voiceOutput);
+                            }
                         }
 
                         public void onComplete() {
