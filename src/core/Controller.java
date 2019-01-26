@@ -87,7 +87,17 @@ public class Controller implements Initializable {
 //                            list.getItems().add(o+":"+hashMap.get(o));
                         }
                         //if action equals to "cda" or "cdr" change pwd variable
-                        if (response.getResult().getAction().equals("cda") || response.getResult().getAction().equals("cdr")) {
+                        if (response.getResult().getAction().equals("cda")) {
+                            StringJoiner joiner = new StringJoiner("/");
+                            for (Object o : hashMap.keySet().toArray()) {
+                                joiner.add(hashMap.get(o).toString()).add("/");
+                            }
+                            //generate pwd from output from dialogflow
+                            DAO.pwd = Paths.get(joiner.toString()).toAbsolutePath().normalize();
+                            pwdLabel.setText("Current Dir : " + DAO.pwd.toString());
+                            return;
+                        }
+                        if (response.getResult().getAction().equals("cdr")) {
                             StringJoiner joiner = new StringJoiner("/");
                             for (Object o : hashMap.keySet().toArray()) {
                                 joiner.add(hashMap.get(o).toString()).add("/");
@@ -124,7 +134,7 @@ public class Controller implements Initializable {
      * @param hashMap parameters for taking that action
      */
     public void runPython(String action, HashMap<String, JsonElement> hashMap) {
-        StringBuilder str = new StringBuilder("python " + DAO.pythonPath + "/main.py " + action + " ");
+        StringBuilder str = new StringBuilder("python " + DAO.pythonPath + "/../main.py " + action + " ");
         for (Object o : hashMap.keySet().toArray()) {
             str.append(o).append(":").append(hashMap.get(o).toString().replace(' ', '#').replace("\"", "")).append(",");
         }
@@ -180,8 +190,9 @@ public class Controller implements Initializable {
         Iterator imageIterator = output.Image.iterator();
         Iterator uriIterator = output.URI.iterator();
         Iterator textIterator = output.Text.iterator();
-        String name = output.getTitle();
-        list.getItems().add(name);
+        list.getItems().add(output.getTitle());
+        if(!output.getCommand().equals("  "))
+            list.getItems().add("Command executed: " + output.getCommand());
         for (int i : DAO.output.getOrder()) {
             if (i == Constant.IMAGE) {
                 System.out.println("image");
@@ -205,7 +216,7 @@ public class Controller implements Initializable {
     }
 
     public void callErrSearch() {
-        String err = FileIO.readError(DAO.pythonPath.toString() + "/err");
+        String err = FileIO.readError(DAO.pythonPath.toString() + "/error.data");
         System.out.println(err);
     }
 
@@ -225,6 +236,6 @@ public class Controller implements Initializable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        list.setOpacity(0);
+//        list.setOpacity(0);
     }
 }

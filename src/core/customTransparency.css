@@ -125,33 +125,38 @@
     -fx-spacing: 5px;
 }
 
+.list-cell {
+    -fx-alignment: center;
+    -fx-border-color: rgba(0, 0, 255, 0.1);
+}
+
 .list-view .list-cell:filled {
-    -fx-background-color: rgba(8, 67, 18, 0.36);
+    -fx-background-color: rgba(255, 255, 255, 0.36);
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
 
 .list-view .list-cell:hover {
-    -fx-background-color: #434343;
+    -fx-background-color: white;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
 
 .list-view .list-cell:selected {
-    -fx-background-color: #434343;
-    -fx-background-radius: 20;
-    -fx-border-radius: 20;
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
 }
 
 .list-view .list-cell {
     -fx-background-color: transparent;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
 
 .list-view .label {
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 .jfx-rippler {
