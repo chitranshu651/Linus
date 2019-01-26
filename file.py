@@ -3,7 +3,7 @@ import requests
 
 def fileio(parameter):
     files = {
-        'file': (parameter['file'], open(parameter['file'], 'rb')),
+        'file': (parameter['filePath'], open(parameter['filePath'], 'rb')),
     }
     response = requests.post('https://file.io/', files=files)
     if str(response.json()).split("'")[2].__contains__('True'):

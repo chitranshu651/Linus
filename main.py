@@ -4,6 +4,8 @@ import command
 import firefox
 import file
 import search
+import translate
+
 
 def parameter_error():
     print('Insufficient Parameter Specified')
@@ -39,6 +41,8 @@ def main():
             parameter_error()
         if parameter['absSrcPath'] == '':
             parameter['absSrcPath'] = parameter['pwd']
+        parameter['absSrcPath'] = '/'+parameter['absSrcPath'].replace("#","/")
+        parameter['absDestPath'] = '/'+parameter['absDestPath'].replace("#","/")+'/'
         parameter['command'] = 'cp ' + parameter['absSrcPath'] + '/' + parameter['fileName'] + ' ' + parameter[
             'absDestPath']
         print('::cp::')
@@ -49,28 +53,27 @@ def main():
             parameter['query']
         except KeyError:
             parameter_error()
-        parameter['url'] = 'devdocs.io/search?q=' + quote(parameter['query'])
+        parameter['url'] = 'devdocs.io/search?q=' + quote(parameter['query'].replace("#","+"))
         print('::devdocs::')
         print(parameter['url'])
         firefox.open_url(parameter)
 
-    elif action == 'apropos':
-        try:
-            parameter['command']
-        except KeyError:
-            parameter_error()
-        parameter['command'] = 'apropos ' + parameter['command']
-        print('::apropos::')
-        print(parameter['command'])
-        command.execute_command(parameter)
     elif action == 'cmd':
         try:
             parameter['command']
         except KeyError:
             parameter_error()
         print('::cmd::')
+        parameter['command'] = parameter['command'].replace("#"," ")
         print(parameter['command'])
         command.execute_command(parameter)
+
+    elif action == 'ps':
+        print('::ps::')
+        parameter['command'] = 'ps -x | grep pts'
+        print(parameter['command'])
+        command.execute_command(parameter)
+
     elif action == 'kill':
         try:
             parameter['pid']
@@ -80,6 +83,7 @@ def main():
         print('::kill::')
         print(parameter['command'])
         command.execute_command(parameter)
+
     elif action == 'man':
         try:
             parameter['command']
@@ -89,6 +93,7 @@ def main():
         print('::man::')
         print(parameter['command'])
         command.execute_command(parameter)
+
     elif action == 'move':
         try:
             parameter['absSrcPath']
@@ -99,10 +104,13 @@ def main():
             parameter_error()
         if parameter['absSrcPath'] == '':
             parameter['absSrcPath'] = parameter['pwd']
+        parameter['absSrcPath'] = '/' + parameter['absSrcPath'].replace("#", "/")
+        parameter['absDestPath'] = '/' + parameter['absDestPath'].replace("#", "/") + '/'
         parameter['command'] = 'mv ' + parameter['absSrcPath'] + '/' + parameter['fileName'] + ' ' + parameter['absDestPath']
         print('::mv::')
         print(parameter['command'])
         command.execute_command(parameter)
+
     elif action == 'rmdir':
         try:
             parameter['absPath']
@@ -110,21 +118,29 @@ def main():
             parameter['directoryName']
         except KeyError:
             parameter_error()
-        parameter['command'] = 'rm -r ' + parameter['pwd'] + parameter['absPath'] + parameter['directoryName']
+        if parameter['absPath'] == "":
+            parameter['absPath'] = parameter['pwd']
+        parameter['absPath'] = '/'+parameter['absPath'].replace("#","/")+'/'
+        parameter['command'] = 'rm -r ' + parameter['absPath'] + parameter['directoryName']
         print('::rmdir::')
         print(parameter['command'])
         command.execute_command(parameter)
+
     elif action == 'rm':
         try:
-            parameter['absSrcPath']
+            parameter['absPath']
             parameter['pwd']
             parameter['fileName']
         except KeyError:
             parameter_error()
-        parameter['command'] = 'rm ' + parameter['pwd'] + parameter['absPath'] + parameter['fileName']
+        if parameter['absPath'] == "":
+            parameter['absPath'] = parameter['pwd']
+        parameter['absPath'] = '/'+parameter['absPath'].replace("#","/")+'/'
+        parameter['command'] = 'rm ' + parameter['absPath'] + parameter['fileName']
         print('::rm::')
         print(parameter['command'])
         command.execute_command(parameter)
+
     elif action == 'ls':
         try:
             parameter['pwd']
@@ -134,12 +150,15 @@ def main():
         print('::ls::')
         print(parameter['pwd'])
         print(parameter['path'])
-        parameter['command'] = 'ls ' + parameter['pwd'] + '/' + parameter['path']
+        parameter['command'] = 'ls /' + parameter['pwd'].replace("#","/") + '/' + parameter['path'].replace("#"," ")
+        print(parameter['command'])
         command.execute_command(parameter)
+
     elif action == 'htop':
         print('::htop::')
         parameter['command'] = "top -n 1 -b"
         command.execute_command(parameter)
+
     elif action == 'whatis':
         try:
             parameter['command']
@@ -147,6 +166,8 @@ def main():
             parameter_error()
         parameter['command'] = 'whatis ' + parameter['command']
         command.execute_command(parameter)
+
+    #todo check
     elif action == 'loadFirefox':
         try:
             parameter['saveFile']
@@ -155,6 +176,7 @@ def main():
         print('::loadFirefox::')
         print(parameter['saveFile'])
         firefox.load(parameter)
+    #todo check
     elif action == 'saveFirefox':
         try:
             parameter['saveFile']
@@ -163,6 +185,7 @@ def main():
         print('::saveFirefox::')
         print(parameter['saveFile'])
         firefox.save(parameter)
+
     elif action == 'url':
         try:
             parameter['url']
@@ -171,14 +194,18 @@ def main():
         print('::url::')
         print(parameter['url'])
         firefox.open_url(parameter)
+    #todo check
     elif action == 'fileio':
         try:
+            parameter['pwd']
             parameter['filePath']
         except KeyError:
             parameter_error()
         print('::fileio::')
+        parameter['filePath'] = '/'+parameter['pwd'].replace("#","/")+'/'+parameter['filePath'].replace("#","/")
         print(parameter['filePath'])
-        file.fileio()
+        file.fileio(parameter)
+
     elif action == "fsearch":
         try:
             parameter['key']
@@ -188,6 +215,7 @@ def main():
         print('::fsearch::')
         print(parameter['command'])
         command.execute_command(parameter)
+    #todo check wolfram
     elif action == "gsearch":
         try:
             parameter['search_string']
@@ -196,6 +224,7 @@ def main():
             parameter_error()
         print('::gsearch::')
         search.google(parameter)
+    #todo check wolfram
     elif action == 'wsearch':
         try:
             parameter['query']
@@ -204,6 +233,7 @@ def main():
         print('::wolfsearch::')
         print(parameter['query'])
         search.wolfram(parameter)
+    #todo check wolfram
     elif action == 'translate':
         try:
             parameter['query']
@@ -213,7 +243,8 @@ def main():
         print('::translate::')
         print(parameter['query'])
         print(parameter['langauge'])
-        #todo translate api
+        translate.translate(parameter)
+    #todo check wolfram
     elif action == 'weather':
         try:
             parameter['location']
@@ -223,6 +254,7 @@ def main():
         print(parameter['location'])
         parameter['query'] = 'weather at ' + parameter['location']
         search.wolfram(parameter)
+    #todo check wolfram
     elif action == 'dictionary':
         try:
             parameter['location']

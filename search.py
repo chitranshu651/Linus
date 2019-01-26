@@ -40,23 +40,24 @@ def wolfram(parameter):
 
 
 def google(parameter):
-    if parameter['search-engine'] == 'Google':
+    parameter['search_string'] = parameter['search_string'].replace("#"," ")
+    if parameter['search_engine'] == 'Google':
         parameter['url'] = 'https://google.com/search?q=' + quote(parameter['search_string'])
-    elif parameter['search-engine'] == 'Wikipedia':
+    elif parameter['search_engine'] == 'Wikipedia':
         parameter['url'] = 'https://en.wikipedia.org/wiki/' + quote(parameter['search_string'])
-    elif parameter['search-engine'] == 'Amazon':
+    elif parameter['search_engine'] == 'Amazon':
         parameter['url'] = 'https://www.amazon.in/s/?field-keywords=' + quote(parameter['search_string'])
-    elif parameter['search-engine'] == 'DuckDuckGo':
+    elif parameter['search_engine'] == 'DuckDuckGo':
         parameter['url'] = 'https://duckduckgo.com/?q=' + quote(parameter['search_string'])
-    elif parameter['search-engine'] == 'Bing':
+    elif parameter['search_engine'] == 'Bing':
         parameter['url'] = 'https://bing.com/search?q=' + quote(parameter['search_string'])
-    elif parameter['search-engine'] == 'Stackoverflow':
+    elif parameter['search_engine'] == 'Stackoverflow':
         parameter['url'] = 'https://stackoverflow.com/search?q=' + quote(parameter['search_string'])
     else:
         parameter['url'] = 'wolfram'
         parameter['query'] = parameter['search_string']
     print(parameter['url'])
     if not parameter['url'] == 'wolfram':
-        firefox.urlopen(parameter)
+        firefox.open_url(parameter)
     else:
         wolfram(parameter)
