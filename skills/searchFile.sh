@@ -1,4 +1,10 @@
 #!/bin/bash
+#
+#
+#   bash searchFile.sh fileToSearch FileDirectory
+#   FileDirectory can be null
+#
+#
 
 if [ $# == 0 ]; then
 	echo "Enter filename"
