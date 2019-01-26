@@ -1,19 +1,14 @@
 package core.watchdogs;
 
 import core.DAO;
-import core.FileIO;
 
 import java.io.IOException;
 import java.nio.file.*;
 
-/**
- * Watchdog on output from python, will be used for updating GUI
- */
-public class OutputWatchDog implements Runnable {
+public class ErrorWatchDog implements Runnable {
 
-    public OutputWatchDog() { (new Thread(this)).start(); }
+    public ErrorWatchDog() { (new Thread(this)).start(); }
 
-    @Override
     public void run() {
         Path path = DAO.pythonPath;
         System.out.println(path);
@@ -21,15 +16,14 @@ public class OutputWatchDog implements Runnable {
             final WatchKey watchKey = path.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
             while (true) {
                 final WatchKey wk = watchService.take();
-                System.out.println(path.toString() + "/output");
+                System.out.println(path.toString() + "/err");
                 for (WatchEvent<?> event : wk.pollEvents()) {
                     //we only register "ENTRY_MODIFY" so the context is always a Path.
                     final Path changed = (Path) event.context();
                     System.out.println(changed);
-                    if (changed.endsWith("output")) {
-                        System.out.println("output has changed");
-                        FileIO.readJSONFrom(path.toString() + "/output");
-                        core.DAO.controller.updateGUI();
+                    if (changed.endsWith("err")) {
+                        System.out.println("error has occurred");
+                        DAO.controller.callErrSearch();
                     }
                 }
                 // reset the key
@@ -43,3 +37,4 @@ public class OutputWatchDog implements Runnable {
         }
     }
 }
+

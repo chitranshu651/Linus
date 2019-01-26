@@ -127,14 +127,14 @@
 
 .list-view .list-cell:filled {
     -fx-background-color: rgba(8, 67, 18, 0.36);
-    -fx-background-radius: 20;
-    -fx-border-radius: 20;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
 }
 
 .list-view .list-cell:hover {
     -fx-background-color: #434343;
-    -fx-background-radius: 20;
-    -fx-border-radius: 20;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
 }
 
 .list-view .list-cell:selected {
@@ -146,8 +146,8 @@
 .list-view .list-cell {
     -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-background-radius: 20;
-    -fx-border-radius: 20;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
 }
 
 .list-view .label {
