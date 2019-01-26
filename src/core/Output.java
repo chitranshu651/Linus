@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class Output {
     String title;
+    String commandExecuted;
     List<Integer> order;
     List<Image> Image;
     List<URI> URI;
@@ -24,6 +25,14 @@ public class Output {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getCommandExecuted() {
+        return commandExecuted;
+    }
+
+    public void setCommandExecuted(String title) {
+        this.commandExecuted = commandExecuted;
     }
 
     public List<Integer> getOrder() {

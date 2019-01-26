@@ -26,4 +26,17 @@ public class FileIO {
         }
     }
 
+    static String readError(String fileName) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String result = br.readLine();
+            Files.delete(Paths.get(fileName));
+            return result;
+            //todo empty file after reading here
+            //todo maybe done (check)
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "NULL:FUNCTION FAILS :'(";
+    }
+
 }

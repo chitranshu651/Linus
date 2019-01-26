@@ -202,4 +202,9 @@ public class Controller {
         list.getItems().add(vBox);
     }
 
+    public void callErrSearch() {
+        String err = FileIO.readError(DAO.pythonPath.toString() + "/err");
+        System.out.println(err);
+    }
+
 }
