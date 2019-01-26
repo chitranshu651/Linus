@@ -309,7 +309,28 @@ def main():
         print('::cmd::')
         parameter['command'] = './skills/alarm.sh '+ parameter['hour'] + " " + parameter['min'] + " " + parameter['message']
         print(parameter['command'])
-        build_json(action,parameter['command'],command.execute_command(parameter)) 
+        build_json(action,parameter['command'],command.execute_command(parameter))
+    #Timer
+    elif action =='timer':
+        try:
+           parameter['command']
+        except KeyError:
+            parameter_error()
+        print('::cmd::')
+        parameter['command'] = './skills/timer.sh '+ parameter['seconds'] + " " + parameter['message']
+        print(parameter['command'])
+        build_json(action,parameter['command'],command.execute_command(parameter))
+    #Play Music
+    elif action == 'musicplayer':
+         try:
+           parameter['command']
+        except KeyError:
+            parameter_error()
+        print('::cmd::')
+        parameter['command'] = './skills/musicPlayer.sh '+ parameter['absPath']
+        print(parameter['command'])
+        build_json(action,parameter['command'],command.execute_command(parameter))
+    #
     #todo check wolfram
     elif action == 'dictionary':
         try:
