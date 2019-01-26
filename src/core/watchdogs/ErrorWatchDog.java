@@ -7,7 +7,7 @@ import java.nio.file.*;
 
 public class ErrorWatchDog implements Runnable {
 
-    ErrorWatchDog() { (new Thread(this)).start(); }
+    public ErrorWatchDog() { (new Thread(this)).start(); }
 
     public void run() {
         Path path = DAO.pythonPath;
