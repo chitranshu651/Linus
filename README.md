@@ -1,11 +1,14 @@
 # Linus: The Linux Tutor
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![Python](https://img.shields.io/badge/python-v3.7+-blue.svg)
-![Java](https://img.shields.io/badge/java-8-blue.svg)
 <p align="center">
 <img src="Assets/logo.jpg"/>
   </p>
   
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+
+[![forthebadge made-with-java](http://ForTheBadge.com/images/badges/made-with-java.svg)](https://www.java.com/)
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-green.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![GitHub contributors](https://img.shields.io/github/contributors/chitranshu651/Linus.svg)](https://github.com/chitranshu651/Linus/graphs/contributors)
 ## Introduction
   Linus is a virtual Linux AI aimed at helping Linux newcomers overcome the learning curve accompanied by switching to Linux such as learning the necessary commands and handling the errors that come up. Linus includes the ability to understand speech and execute commands presented by the user. It is also able to search common resource portals such as [Google](https://www.google.com), [Stackoverflow](https://www.stackoverflow.com) and [GeeksforGeeks](https://www.geeksforgeeks.com).
 
