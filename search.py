@@ -1,6 +1,9 @@
 import json
+from urllib.parse import quote
 from urllib.request import urlopen
 import xml.etree.ElementTree as ET
+import firefox
+
 
 def wolfram(parameter):
     from credentials import app_id
@@ -34,3 +37,26 @@ def wolfram(parameter):
     json_data = json.dumps(data)
     file.write(json_data)
     exit(0)
+
+
+def google(parameter):
+    if parameter['search-engine'] == 'Google':
+        parameter['url'] = 'https://google.com/search?q=' + quote(parameter['search_string'])
+    elif parameter['search-engine'] == 'Wikipedia':
+        parameter['url'] = 'https://en.wikipedia.org/wiki/' + quote(parameter['search_string'])
+    elif parameter['search-engine'] == 'Amazon':
+        parameter['url'] = 'https://www.amazon.in/s/?field-keywords=' + quote(parameter['search_string'])
+    elif parameter['search-engine'] == 'DuckDuckGo':
+        parameter['url'] = 'https://duckduckgo.com/?q=' + quote(parameter['search_string'])
+    elif parameter['search-engine'] == 'Bing':
+        parameter['url'] = 'https://bing.com/search?q=' + quote(parameter['search_string'])
+    elif parameter['search-engine'] == 'Stackoverflow':
+        parameter['url'] = 'https://stackoverflow.com/search?q=' + quote(parameter['search_string'])
+    else:
+        parameter['url'] = 'wolfram'
+        parameter['query'] = parameter['search_string']
+    print(parameter['url'])
+    if not parameter['url'] == 'wolfram':
+        firefox.urlopen(parameter)
+    else:
+        wolfram(parameter)

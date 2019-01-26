@@ -11,6 +11,10 @@ def parameter_error():
 
 
 # noinspection PyStatementEffect
+def debug():
+    pass
+
+
 def main():
     arguments = sys.argv[1:]
     print(arguments)
@@ -184,10 +188,52 @@ def main():
         print('::fsearch::')
         print(parameter['command'])
         command.execute_command(parameter)
+    elif action == "gsearch":
+        try:
+            parameter['search_string']
+            parameter['search_engine']
+        except KeyError:
+            parameter_error()
+        print('::gsearch::')
+        search.google(parameter)
     elif action == 'wsearch':
+        try:
+            parameter['query']
+        except KeyError:
+            parameter_error()
         print('::wolfsearch::')
         print(parameter['query'])
-        search.wolfram()
+        search.wolfram(parameter)
+    elif action == 'translate':
+        try:
+            parameter['query']
+            parameter['langauge']
+        except KeyError:
+            parameter_error()
+        print('::translate::')
+        print(parameter['query'])
+        print(parameter['langauge'])
+        #todo translate api
+    elif action == 'weather':
+        try:
+            parameter['location']
+        except KeyError:
+            parameter_error()
+        print('::weather::')
+        print(parameter['location'])
+        parameter['query'] = 'weather at ' + parameter['location']
+        search.wolfram(parameter)
+    elif action == 'dictionary':
+        try:
+            parameter['location']
+        except KeyError:
+            parameter_error()
+        parameter['query'] = 'meaning of ' + parameter['word']
+        print('::dictionary::')
+        print(parameter['query'])
+        search.wolfram(parameter)
+    elif action == 'debug':
+        debug()
     else:
         print('Undefined Action')
 
@@ -195,3 +241,5 @@ def main():
 if __name__ == '__main__':
     main()
 
+#todo touch file
+#todo show firefox
