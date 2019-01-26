@@ -1,5 +1,6 @@
 package core.watchdogs;
 
+import core.DAO;
 import core.FileIO;
 
 import java.io.IOException;
@@ -10,12 +11,11 @@ import java.nio.file.*;
  */
 public class OutputWatchDog implements Runnable {
 
-    OutputWatchDog() { (new Thread(this)).start(); }
+    public OutputWatchDog() { (new Thread(this)).start(); }
 
     @Override
     public void run() {
-        String outputFilePath = "location_of_output_from_python"; //not decided yet, not include name of file, filename = output
-        Path path = Paths.get(outputFilePath);
+        Path path = DAO.pythonPath;
         System.out.println(path);
         try (final WatchService watchService = FileSystems.getDefault().newWatchService()) {
             final WatchKey watchKey = path.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);

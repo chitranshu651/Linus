@@ -1,6 +1,7 @@
 package core;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * DAO - Data Access Object
@@ -12,4 +13,5 @@ public class DAO {
     public static Controller controller;
     static Path pwd; //for sending path to commands
     static Output output;
+    public static final Path pythonPath = Paths.get("home/iosdev747/Desktop/Linus-master/");
 }

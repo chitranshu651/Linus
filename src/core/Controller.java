@@ -126,7 +126,7 @@ public class Controller {
      * @param hashMap parameters for taking that action
      */
     public void runPython(String action, HashMap<String, JsonElement> hashMap) {
-        StringBuilder str = new StringBuilder("python /home/iosdev747/PycharmProjects/test1/main.py " + action + " ");
+        StringBuilder str = new StringBuilder("python "+DAO.pythonPath+" " + action + " ");
         for (Object o:hashMap.keySet().toArray()) {
             str.append(o).append(":").append(hashMap.get(o).toString().replace(' ', '#')).append(",");
         }
@@ -136,7 +136,7 @@ public class Controller {
         String str = "python /home/abcd/test/main.py act1 Name1:Value1,Name2:Value2,Name3:Value3,pwd:path";
          */
         try {
-            String command = str + "; cat /home/iosdev747/PycharmProjects/test1/output";
+            String command = str.toString();
             Process proc = Runtime.getRuntime().exec(command);
             BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             String line = "";
