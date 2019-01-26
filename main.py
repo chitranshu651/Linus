@@ -2,6 +2,8 @@ import sys
 from urllib.parse import quote
 import command
 import firefox
+import file
+import search
 
 def parameter_error():
     print('Insufficient Parameter Specified')
@@ -141,9 +143,55 @@ def main():
             parameter_error()
         parameter['command'] = 'whatis ' + parameter['command']
         command.execute_command(parameter)
+    elif action == 'loadFirefox':
+        try:
+            parameter['saveFile']
+        except KeyError:
+            parameter_error()
+        print('::loadFirefox::')
+        print(parameter['saveFile'])
+        firefox.load(parameter)
+    elif action == 'saveFirefox':
+        try:
+            parameter['saveFile']
+        except KeyError:
+            parameter_error()
+        print('::saveFirefox::')
+        print(parameter['saveFile'])
+        firefox.save(parameter)
+    elif action == 'url':
+        try:
+            parameter['url']
+        except KeyError:
+            parameter_error()
+        print('::url::')
+        print(parameter['url'])
+        firefox.open_url(parameter)
+    elif action == 'fileio':
+        try:
+            parameter['filePath']
+        except KeyError:
+            parameter_error()
+        print('::fileio::')
+        print(parameter['filePath'])
+        file.fileio()
+    elif action == "fsearch":
+        try:
+            parameter['key']
+        except KeyError:
+            parameter_error()
+        parameter['command'] = "locate " + parameter['key'].replace('#', '\ ')
+        print('::fsearch::')
+        print(parameter['command'])
+        command.execute_command(parameter)
+    elif action == 'wsearch':
+        print('::wolfsearch::')
+        print(parameter['query'])
+        search.wolfram()
     else:
         print('Undefined Action')
 
 
 if __name__ == '__main__':
     main()
+
