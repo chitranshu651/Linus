@@ -9,10 +9,14 @@ import ai.api.AIConfiguration;
 import ai.api.AIDataService;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 import java.lang.reflect.Field;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.StringJoiner;
 
@@ -74,11 +78,14 @@ public class Controller {
                             System.out.println("" + hashMap.get(o));
                             list.getItems().add(o+":"+hashMap.get(o));
                         }
+                        //if action equals to "cda" or "cdr" change pwd variable
                         if(response.getResult().getAction().equals("cda") || response.getResult().getAction().equals("cdr")) {
                             StringJoiner joiner = new StringJoiner("/");
                             for (Object o:hashMap.keySet().toArray()) {
                                 joiner.add(hashMap.get(o).toString()).add("/");
                             }
+                            //generate pwd from output from dialogflow
+                            DAO.pwd = Paths.get(DAO.pwd.toString().concat(joiner.toString()));
                             return;
                         }
                         System.out.println("output:" + response.getResult().getAction());
@@ -113,7 +120,33 @@ public class Controller {
 
     public void updateGUI() {
         System.out.println("updating GUI");
-        //// TODO: 26/1/19 update GUI, read data from output from python's o/p
+        VBox vBox = new VBox();
+        Output output = DAO.output;
+        Iterator imageIterator = output.Image.iterator();
+        Iterator uriIterator = output.URI.iterator();
+        Iterator textIterator = output.Text.iterator();
+        String name = output.getTitle();
+        list.getItems().add(name);
+        for (int i:DAO.output.getOrder()) {
+            if(i == Constant.IMAGE) {
+                System.out.println("image");
+                core.template.Image image = ((core.template.Image)imageIterator.next());
+                javafx.scene.image.Image sceneimage = new javafx.scene.image.Image(image.getSrc());
+                ImageView imageView = new ImageView(sceneimage);
+                if(sceneimage.getWidth() >= Constant.MAXWIDTH || sceneimage.getHeight() >= Constant.MAXHEIGHT) {
+                    sceneimage = new javafx.scene.image.Image(image.getSrc(), Constant.MAXWIDTH, Constant.MAXHEIGHT, true, false);
+                    imageView = new ImageView(sceneimage);
+                }
+                vBox.getChildren().add(imageView);
+            } else if(i == Constant.URL) {
+                System.out.println("url");
+                vBox.getChildren().add(new Label(((core.template.URI)uriIterator.next()).getUrl()));
+            } else if(i == Constant.TEXT) {
+                System.out.println("text");
+                vBox.getChildren().add(new Label(((core.template.Text)textIterator.next()).getData()));
+            }
+        }
+        list.getItems().add(vBox);
     }
 
 }

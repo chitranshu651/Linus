@@ -1,5 +1,7 @@
 package core.watchdogs;
 
+import core.FileIO;
+
 import java.io.IOException;
 import java.nio.file.*;
 
@@ -12,8 +14,8 @@ public class OutputWatchDog implements Runnable {
 
     @Override
     public void run() {
-        String pp = "location_of_output_from_python"; //not decided yet, file must ends with "output"
-        Path path = Paths.get(pp);
+        String outputFilePath = "location_of_output_from_python"; //not decided yet, not include name of file, filename = output
+        Path path = Paths.get(outputFilePath);
         System.out.println(path);
         try (final WatchService watchService = FileSystems.getDefault().newWatchService()) {
             final WatchKey watchKey = path.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
@@ -26,6 +28,7 @@ public class OutputWatchDog implements Runnable {
                     System.out.println(changed);
                     if (changed.endsWith("output")) {
                         System.out.println("output has changed");
+                        FileIO.readJSONFrom(path.toString() + "/output");
                         core.DAO.controller.updateGUI();
                     }
                 }
