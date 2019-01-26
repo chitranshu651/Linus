@@ -1,0 +1,164 @@
+/****************************************************************
+
+  ScrollPane Skin
+
+****************************************************************/
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane:focused {
+    -fx-background-insets: 0;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .corner {
+    -fx-background-insets: 0;
+    -fx-background-color: transparent;
+}
+
+/****************************************************************
+
+  ScrollBar Skin
+
+****************************************************************/
+.scroll-bar {
+    -fx-background-color: rgb(96, 96, 96);
+    -fx-background-radius: 20px;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 20px;
+}
+
+.scroll-bar:vertical .track-background,
+.scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 20px;
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: rgb(211, 211, 211);
+    -fx-background-insets: 4 0 4 0;
+    -fx-background-radius: 20px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgb(211, 211, 211);
+    -fx-background-insets: 0 4 0 4;
+    -fx-background-radius: 20px;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgb(231, 231, 231);
+}
+
+.scroll-bar:horizontal .thumb:pressed,
+.scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: rgb(255, 255, 255);
+}
+
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 20px;
+    -fx-padding: 5;
+}
+
+.scroll-bar:horizontal .increment-button, .scroll-bar:horizontal .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 20px;
+    -fx-padding: 5;
+}
+
+.scroll-bar:horizontal .increment-arrow {
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-background-color: rgb(211, 211, 211);
+    -fx-padding: 0.25em;
+    -fx-rotate: -90;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .increment-arrow {
+    -fx-background-color: rgb(211, 211, 211);
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-padding: 0.25em;
+    -fx-rotate: 0;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal .decrement-arrow {
+    -fx-background-color: rgb(211, 211, 211);
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-padding: 0.25em;
+    -fx-rotate: 90;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .decrement-arrow {
+    -fx-background-color: rgb(211, 211, 211);
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-padding: 0.25em;
+    -fx-rotate: -180;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical:focused,
+.scroll-bar:horizontal:focused {
+    -fx-background-color: transparent, rgb(96, 96, 96), rgb(96, 96, 96);
+}
+
+/***************************************************************
+
+  ListView Skin
+
+***************************************************************/
+.list-view {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+    -fx-spacing: 5px;
+}
+
+.list-view .list-cell:filled {
+    -fx-background-color: rgba(8, 67, 18, 0.36);
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #434343;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #434343;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+.list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+.list-view .label {
+    -fx-text-fill: white;
+}
+
+.jfx-rippler {
+    -jfx-rippler-fill: transparent;
+}

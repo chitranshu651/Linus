@@ -1,14 +1,15 @@
 package core;
 
-import com.google.gson.JsonElement;
-import com.jfoenix.controls.*;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-
 import ai.api.AIConfiguration;
 import ai.api.AIDataService;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
+import com.google.gson.JsonElement;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextField;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
