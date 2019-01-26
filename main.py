@@ -329,8 +329,7 @@ def main():
         print('::cmd::')
         parameter['command'] = './skills/musicPlayer.sh '+ parameter['absPath']
         print(parameter['command'])
-        build_json(action,parameter['command'],command.execute_command(parameter))
-    #
+        build_json(action,parameter['command'],command.execute_command(parameter)
     #todo check wolfram
     elif action == 'dictionary':
         try:
