@@ -69,7 +69,7 @@ def main():
             'absDestPath']
         print('::cp::')
         print(parameter['command'])
-        build_json(action,parameter['command'],command.execute_command(parameter))
+        build_json("Command is Being Executed",parameter['command'],command.execute_command(parameter))
     elif action == 'devdocs':
         try:
             parameter['query']
@@ -88,13 +88,13 @@ def main():
         print('::cmd::')
         parameter['command'] = parameter['command'].replace("#"," ")
         print(parameter['command'])
-        build_json(action,parameter['command'],command.execute_command(parameter))
+        build_json("Command is Being Executed",parameter['command'],command.execute_command(parameter))
 
     elif action == 'ps':
         print('::ps::')
         parameter['command'] = 'ps -x | grep pts'
         print(parameter['command'])
-        build_json(action, parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'kill':
         try:
@@ -114,7 +114,7 @@ def main():
         parameter['command'] = 'man ' + parameter['command'] + '| cat'
         print('::man::')
         print(parameter['command'])
-        build_json(action, parameter['command'], command.execute_command(parameter))
+        build_json("Here is what I found", parameter['command'], command.execute_command(parameter))
 
     elif action == 'move':
         try:
@@ -131,7 +131,7 @@ def main():
         parameter['command'] = 'mv ' + parameter['absSrcPath'] + '/' + parameter['fileName'] + ' ' + parameter['absDestPath']
         print('::mv::')
         print(parameter['command'])
-        build_json("File Moved", parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'rmdir':
         try:
@@ -146,7 +146,7 @@ def main():
         parameter['command'] = 'rm -r ' + parameter['absPath'] + parameter['directoryName']
         print('::rmdir::')
         print(parameter['command'])
-        build_json(action, parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'rm':
         try:
@@ -161,7 +161,7 @@ def main():
         parameter['command'] = 'rm ' + parameter['absPath'] + parameter['fileName']
         print('::rm::')
         print(parameter['command'])
-        build_json(action, parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'ls':
         try:
@@ -174,12 +174,12 @@ def main():
         print(parameter['path'])
         parameter['command'] = 'ls /' + parameter['pwd'].replace("#","/") + '/' + parameter['path'].replace("#"," ")
         print(parameter['command'])
-        build_json(action, parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'htop':
         print('::htop::')
         parameter['command'] = "top -n 1 -b"
-        build_json(action, parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'whatis':
         try:
@@ -187,7 +187,7 @@ def main():
         except KeyError:
             parameter_error()
         parameter['command'] = 'whatis ' + parameter['command']
-        build_json(action, parameter['command'], command.execute_command(parameter))
+        build_json("Command is Being Executed", parameter['command'], command.execute_command(parameter))
 
     elif action == 'loadFirefox':
         try:
@@ -197,12 +197,11 @@ def main():
         print('::loadFirefox::')
         print(parameter['saveFile'])
         firefox.load(parameter)
-        build_json("Loaded" + parameter['saveFile'] + "Firefox State", "", "")
+        build_json("Loading " + parameter['saveFile'] + "Firefox State", "", "")
 
     elif action == 'showFirefox':
         print('::showFirefox::')
-        firefox.load(parameter)
-        build_json("Loaded" + parameter['saveFile'] + "Firefox State", "", "")
+        firefox.show(parameter)
 
     elif action == 'saveFirefox':
         try:
@@ -211,8 +210,8 @@ def main():
             parameter_error()
         print('::saveFirefox::')
         print(parameter['saveFile'])
-        build_json("Saved" + parameter['saveFile'] + "Firefox State", "", "")
-
+        build_json("Loading" + parameter['saveFile'] + "Firefox State", "", "")
+        firefox.save(parameter)
 
     elif action == 'url':
         try:
