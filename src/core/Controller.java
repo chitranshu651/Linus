@@ -55,17 +55,12 @@ public class Controller {
             if(voiceThread.isAlive()) {
                 voiceThread.stop();
             }
-            goButton.setText("Go");
-        }
-        else {
-            isProcessing = !isProcessing;
             if(inputField.getText().equals("")) {
-                return;
+                inputField.setText(DAO.voiceOutput);
+                if(inputField.getText().equals("")) {
+                    return;
+                }
             }
-            //setting GOOGLE_APPLICATION_CREDENTIALS variable
-//            setEnv("GOOGLE_APPLICATION_CREDENTIALS", "/home/iosdev747/Downloads/creds.json");
-//            voiceThread = new Thread(new Recognizer());
-//            voiceThread.start();
             AIConfiguration configuration = new AIConfiguration("c3a31db2f9bc467abebad1e364b8ff9f");
 
             AIDataService dataService = new AIDataService(configuration);
@@ -109,6 +104,14 @@ public class Controller {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+            goButton.setText("Go");
+        }
+        else {
+            isProcessing = !isProcessing;
+            //setting GOOGLE_APPLICATION_CREDENTIALS variable
+            setEnv("GOOGLE_APPLICATION_CREDENTIALS", "/home/iosdev747/Downloads/creds.json");
+            voiceThread = new Thread(new Recognizer());
+            voiceThread.start();
             goButton.setText("Stop");
         }
     }
