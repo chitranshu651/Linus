@@ -218,6 +218,23 @@ public class Controller implements Initializable {
     public void callErrSearch() {
         String err = FileIO.readError(DAO.pythonPath.toString() + "/error.data");
         System.out.println(err);
+        String command = "python " + DAO.pythonPath + "/../main.py gsearch query:"+err.replace(' ', '#')+",search-engine:Google";
+        System.out.println("Running command:" + err.toString());
+        try {
+            Process proc = Runtime.getRuntime().exec(command);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                System.out.print(line + "\n");
+            }
+            try {
+                proc.waitFor();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
