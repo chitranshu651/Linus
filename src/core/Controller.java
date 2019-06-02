@@ -58,7 +58,7 @@ public class Controller implements Initializable {
                     return;
                 }
             }
-            AIConfiguration configuration = new AIConfiguration("c3a31db2f9bc467abebad1e364b8ff9f");
+            AIConfiguration configuration = new AIConfiguration(DAO.api_ai_clientAccessToken);
 
             AIDataService dataService = new AIDataService(configuration);
             System.out.print("START ");
