@@ -16,7 +16,7 @@ public class OutputWatchDog implements Runnable {
     @Override
     public void run() {
         Path path = DAO.pythonPath;
-        System.out.println("O:"+path);
+        System.out.println("Output: "+path);
         try (final WatchService watchService = FileSystems.getDefault().newWatchService()) {
             final WatchKey watchKey = path.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
             while (true) {

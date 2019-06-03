@@ -11,7 +11,7 @@ public class ErrorWatchDog implements Runnable {
 
     public void run() {
         Path path = DAO.pythonPath;
-        System.out.println("E:"+path);
+        System.out.println("Error: "+path);
         try (final WatchService watchService = FileSystems.getDefault().newWatchService()) {
             final WatchKey watchKey = path.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
             while (true) {

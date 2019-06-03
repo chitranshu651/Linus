@@ -48,7 +48,7 @@
             <JFXButton fx:id="goButton" buttonType="RAISED" layoutX="408.0" layoutY="43.0" onAction="#onGoAction" ripplerFill="BLACK" text="Go" textFill="#0400ff" />
             <ImageView fitHeight="80.0" fitWidth="119.0" layoutX="14.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@assets/logo.jpg" />
+                  <Image url="@Assets/logo.jpg" />
                </image>
             </ImageView>
             <JFXProgressBar layoutX="133.0" layoutY="40.0" prefHeight="1.0" prefWidth="460.0" progress="1.0" />
