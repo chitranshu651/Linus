@@ -239,9 +239,7 @@ public class Controller implements Initializable {
         try (final DatagramSocket socket = new DatagramSocket()) {
             socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
             ipLabel.setText("IP : " + socket.getLocalAddress().getHostAddress());
-        } catch (SocketException e) {
-            e.printStackTrace();
-        } catch (UnknownHostException e) {
+        } catch (SocketException | UnknownHostException e) {
             e.printStackTrace();
         }
         pwdLabel.setText("Current Dir : " + DAO.pwd.toAbsolutePath().normalize().toString());
