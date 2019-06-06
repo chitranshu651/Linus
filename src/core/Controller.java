@@ -109,8 +109,7 @@ public class Controller implements Initializable {
             goButton.setText("Go");
         } else {
             isProcessing = !isProcessing;
-            //todo fix hard-coded path
-            setEnv("GOOGLE_APPLICATION_CREDENTIALS", "/home/iosdev747/Downloads/creds.json");
+            setEnv("GOOGLE_APPLICATION_CREDENTIALS", DAO.credJson);
             voiceThread = new Thread(new Recognizer());
             voiceThread.start();
             goButton.setText("Stop");
