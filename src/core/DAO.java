@@ -15,5 +15,6 @@ public class DAO {
     static Path pwd; //for sending path to commands
     static Output output;
     public static final Path pythonPath = Paths.get((new File(".")).getAbsolutePath().substring(0,(new File(".")).getAbsolutePath().length()-2));
-    public static final String api_ai_clientAccessToken = "c3a31db2f9bc467abebad1e364b8ff9f";
+    static final String api_ai_clientAccessToken = "c3a31db2f9bc467abebad1e364b8ff9f";
+    static String randomSessionId = String.valueOf((int)(Math.random()*1000));
 }

@@ -64,8 +64,7 @@ public class Controller implements Initializable {
             System.out.print("START ");
             try {
                 AIRequest request = new AIRequest(inputField.getText());
-                //todo make it dao
-                request.setSessionId("1337");
+                request.setSessionId(DAO.randomSessionId);
                 AIResponse response = dataService.request(request);
                 System.out.println("\nSend Request: " + inputField.getText());
                 System.out.println("session:" + response.getSessionId());
