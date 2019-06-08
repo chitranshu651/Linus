@@ -1,7 +1,7 @@
 package core.template;
 
 public class Text {
-    String data;
+    private String data;
 
     public String getData() {
         return data;
