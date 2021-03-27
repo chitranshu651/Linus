@@ -31,8 +31,6 @@ public class FileIO {
             String result = br.readLine();
             Files.delete(Paths.get(fileName));
             return result;
-            //todo empty file after reading here
-            //todo maybe done (check)
         } catch (IOException e) {
             e.printStackTrace();
         }

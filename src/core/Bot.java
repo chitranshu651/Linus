@@ -2,11 +2,8 @@ package core;
 
 import core.watchdogs.ErrorWatchDog;
 import core.watchdogs.OutputWatchDog;
-import javafx.fxml.Initializable;
 
-import java.net.URL;
 import java.nio.file.Paths;
-import java.util.ResourceBundle;
 
 public class Bot implements Runnable {
 

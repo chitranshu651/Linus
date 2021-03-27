@@ -1,8 +1,8 @@
 package core.template;
 
 public class Image {
-    String src;
-    String placeHolder;
+    private String src;
+    private String placeHolder;
 
     public String getSrc() {
         return src;

@@ -1,8 +1,8 @@
 package core.template;
 
 public class URI {
-    String url;
-    String placeHolder;
+    private String url;
+    private String placeHolder;
 
     public String getPlaceHolder() {
         return placeHolder;

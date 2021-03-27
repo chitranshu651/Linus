@@ -8,7 +8,6 @@ import com.google.gson.JsonElement;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,11 +15,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-import javax.management.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.management.ManagementFactory;
 import java.lang.reflect.Field;
 import java.net.*;
 import java.nio.file.Paths;
@@ -61,14 +58,13 @@ public class Controller implements Initializable {
                     return;
                 }
             }
-            AIConfiguration configuration = new AIConfiguration("c3a31db2f9bc467abebad1e364b8ff9f");
+            AIConfiguration configuration = new AIConfiguration(DAO.api_ai_clientAccessToken);
 
             AIDataService dataService = new AIDataService(configuration);
             System.out.print("START ");
             try {
                 AIRequest request = new AIRequest(inputField.getText());
-                //random unique sessionID
-                request.setSessionId("1337");
+                request.setSessionId(DAO.randomSessionId);
                 AIResponse response = dataService.request(request);
                 System.out.println("\nSend Request: " + inputField.getText());
                 System.out.println("session:" + response.getSessionId());
@@ -77,22 +73,17 @@ public class Controller implements Initializable {
                     System.out.println("Action: " + action);
                     System.out.println("Speech: " + response.getResult().getFulfillment().getSpeech());
                     if (!response.getResult().getFulfillment().getSpeech().isEmpty()) {
-//                        list.getItems().add(response.getResult().getFulfillment().getSpeech());
                     } else {
-//                        list.getItems().add(response.getResult().getAction());
                         HashMap<String, JsonElement> hashMap = response.getResult().getParameters();
                         Object[] arrays = hashMap.keySet().toArray();
                         for (Object o : arrays) {
                             System.out.println("" + hashMap.get(o));
-//                            list.getItems().add(o+":"+hashMap.get(o));
                         }
-                        //if action equals to "cda" or "cdr" change pwd variable
                         if (response.getResult().getAction().equals("cda")) {
                             StringJoiner joiner = new StringJoiner("/");
                             for (Object o : hashMap.keySet().toArray()) {
                                 joiner.add(hashMap.get(o).toString()).add("/");
                             }
-                            //generate pwd from output from dialogflow
                             DAO.pwd = Paths.get(joiner.toString()).toAbsolutePath().normalize();
                             pwdLabel.setText("Current Dir : " + DAO.pwd.toString());
                             return;
@@ -102,7 +93,6 @@ public class Controller implements Initializable {
                             for (Object o : hashMap.keySet().toArray()) {
                                 joiner.add(hashMap.get(o).toString()).add("/");
                             }
-                            //generate pwd from output from dialogflow
                             DAO.pwd = Paths.get(DAO.pwd.toString().concat(joiner.toString())).toAbsolutePath().normalize();
                             pwdLabel.setText("Current Dir : " + DAO.pwd.toString());
                             return;
@@ -119,8 +109,7 @@ public class Controller implements Initializable {
             goButton.setText("Go");
         } else {
             isProcessing = !isProcessing;
-            //setting GOOGLE_APPLICATION_CREDENTIALS variable
-            setEnv("GOOGLE_APPLICATION_CREDENTIALS", "/home/iosdev747/Downloads/creds.json");
+            setEnv("GOOGLE_APPLICATION_CREDENTIALS", DAO.credJson);
             voiceThread = new Thread(new Recognizer());
             voiceThread.start();
             goButton.setText("Stop");
@@ -242,9 +231,7 @@ public class Controller implements Initializable {
         try (final DatagramSocket socket = new DatagramSocket()) {
             socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
             ipLabel.setText("IP : " + socket.getLocalAddress().getHostAddress());
-        } catch (SocketException e) {
-            e.printStackTrace();
-        } catch (UnknownHostException e) {
+        } catch (SocketException | UnknownHostException e) {
             e.printStackTrace();
         }
         pwdLabel.setText("Current Dir : " + DAO.pwd.toAbsolutePath().normalize().toString());
@@ -253,6 +240,5 @@ public class Controller implements Initializable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//        list.setOpacity(0);
     }
 }

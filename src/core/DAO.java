@@ -1,5 +1,6 @@
 package core;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -13,5 +14,8 @@ public class DAO {
     public static Controller controller;
     static Path pwd; //for sending path to commands
     static Output output;
-    public static final Path pythonPath = Paths.get("/home/iosdev747/Desktop/Linus/Linus");
+    public static final Path pythonPath = Paths.get((new File(".")).getAbsolutePath().substring(0,(new File(".")).getAbsolutePath().length()-2));
+    static final String api_ai_clientAccessToken = "c3a31db2f9bc467abebad1e364b8ff9f";
+    static String randomSessionId = String.valueOf((int)(Math.random()*1000));
+    static String credJson = System.getProperty("user.home")+"/Downloads/creds.json";
 }
